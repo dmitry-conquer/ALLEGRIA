@@ -12,12 +12,22 @@ export default {
        padding: "1rem",
      },
      extend: {
-       colors: {},
-       screens: {
-      },
-      fontSize: {
-      },
+       colors: {
+        primary: {
+          light: "#254A5A",
+          dark: "#0F303F",
+        },
+        secondary: {
+          DEFAULT: "#E64926",
+        },
+        soft: {
+          light: "#EAE9E8",
+          dark: "#CEC6C4",
+        }
+       },
       fontFamily: {
+        'cormorant': ['Cormorant Garamond', 'serif'],
+        'jost': ['Jost', 'sans-serif'],
       },
      },
    },

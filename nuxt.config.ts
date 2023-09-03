@@ -16,7 +16,12 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   spaLoadingTemplate: false,
   css: ["~/assets/styles/style.scss"],
-  modules: [],
+  modules: ['nuxt-swiper'],
+  swiper: {
+    // Swiper options
+    //----------------------
+    modules: ['pagination', "parallax", "autoplay"], // all modules are imported by default
+  },
   postcss: {
     plugins: {
       tailwindcss: {},
