@@ -5,12 +5,13 @@
     class="mb-28"
     title="популярне" />
   <SectionAbout class="mb-28" />
-  {{ res }}
+  {{paymentResult}}
 </template>
 
 <script setup>
-const { data: res } = await useFetch("/api/result");
-setTimeout(() => {
-  console.log(res.value);
-}, 3000);
+const paymentResult = ref(null);
+onMounted(() => {
+  const formData = new FormData(document.forms[0]);
+  paymentResult.value = formData;
+});
 </script>
