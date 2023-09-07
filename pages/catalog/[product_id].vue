@@ -86,17 +86,16 @@
             action="https://www.liqpay.ua/api/3/checkout"
             accept-charset="utf-8">
             <input
-              type="hidden"
+              type="text"
               name="data"
-              :value="dataOrder" />
+              v-model="dataOrder" />
             <input
-              type="hidden"
+              type="text"
               name="signature"
-              :value="signature" />
+              v-model="signature" />
             <input
               type="image"
               src="//static.liqpay.ua/buttons/p1ru.radius.png" />
-            <button type="submit">PAY!</button>
           </form>
           {{ dataOrder }}
           {{ signature }}
@@ -129,6 +128,7 @@
 </template>
 
 <script setup>
+import jsSHA from "jssha";
 import VueMagnifier from "@websitebeaver/vue-magnifier";
 import "@websitebeaver/vue-magnifier/styles.css";
 
@@ -147,35 +147,26 @@ const selectedImage = ref(product.value.image[0]);
 
 const public_key = "sandbox_i50745244528";
 const private_key = "sandbox_ac3mCIe5ymoND1pltWfBx0GtxkJ612e5JTSaZIHH";
+const order_id = Date.now();
 const order = {
-  public_key: public_key,
+  public_key: "sandbox_i50745244528",
   version: "3",
   action: "pay",
   amount: "3",
   currency: "UAH",
-  description: "test",
-  order_id: "234234234",
+  description: "f222dssfsd234test",
+  order_id: order_id,
+  result_url: "https://allegria-store.netlify.app/",
+  server_url: "https://allegria-store.netlify.app/",
 };
 const dataOrder = ref(btoa(JSON.stringify(order)));
-const signatureData = public_key + dataOrder.value + private_key;
+const sign_string = `${private_key}${dataOrder.value}${private_key}`;
 const signature = ref("");
-var encoder = new TextEncoder();
-var data = encoder.encode(signatureData);
 
-onMounted(() => {
-  window.crypto.subtle
-    .digest("SHA-1", data)
-    .then(function (buffer) {
-      var arrayBufferView = new Uint8Array(buffer);
-      var binary = "";
-      for (var i = 0; i < arrayBufferView.length; i++) {
-        binary += String.fromCharCode(arrayBufferView[i]);
-      }
-      var base64String = btoa(binary);
-      signature.value = base64String;
-    })
-    .catch(function (err) {
-      console.error(err);
-    });
-});
+const sha1 = new jsSHA("SHA-1", "TEXT");
+sha1.update(sign_string);
+signature.value = sha1.getHash("B64");
+
+console.log("Кодовані дані:", dataOrder.value);
+console.log("Підпис:", signature.value);
 </script>

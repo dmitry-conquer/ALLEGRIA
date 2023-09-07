@@ -38,7 +38,11 @@
                 <h3 class="text-xl font-medium uppercase">{{ product.name }}</h3>
                 <p class="mb-1.5">{{ product.category.name }}</p>
                 <div class="inline-flex gap-2 text-sm font-medium">
-                  <span v-if="product.oldPrice" class="text-gray-300 line-through">{{ product.oldPrice }} <span>UAH</span></span>
+                  <span
+                    v-if="product.oldPrice"
+                    class="text-gray-300 line-through"
+                    >{{ product.oldPrice }} <span>UAH</span></span
+                  >
                   <span class="text-secondary">{{ product.newPrice }} <span>UAH</span></span>
                 </div>
               </div>
@@ -53,6 +57,8 @@
 <script setup>
 const route = useRoute();
 
+const { data: res } = await useFetch("/api/result");
+console.log(res);
 /*
   get data
 */
@@ -78,7 +84,7 @@ const currentCategory = computed(() => {
     return item.id === category.value;
   })[0]?.name;
 
-  return current || 'Всі товари';
+  return current || "Всі товари";
 });
 
 /*
