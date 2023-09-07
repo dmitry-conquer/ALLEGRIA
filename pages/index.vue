@@ -5,13 +5,15 @@
     class="mb-28"
     title="популярне" />
   <SectionAbout class="mb-28" />
-  {{paymentResult}}
+  {{ paymentResult }}
 </template>
 
 <script setup>
 const paymentResult = ref(null);
 onMounted(() => {
   const formData = new FormData(document.forms[0]);
-  paymentResult.value = formData;
+  formData.forEach((value, key) => {
+    paymentResult.value[key] = value;
+  });
 });
 </script>
