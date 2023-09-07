@@ -14,14 +14,21 @@ export default defineNuxtConfig({
     },
   },
   devtools: { enabled: false },
+
   spaLoadingTemplate: false,
+
   css: ["~/assets/styles/style.scss"],
-  modules: ['nuxt-swiper'],
+
+  modules: ['nuxt-swiper', '@nuxtjs/supabase'],
+
   swiper: {
-    // Swiper options
-    //----------------------
     modules: ['pagination', "parallax", "autoplay"], // all modules are imported by default
   },
+
+  supabase: {
+   redirect: false
+  },
+
   postcss: {
     plugins: {
       tailwindcss: {},

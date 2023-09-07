@@ -1,13 +1,19 @@
 <template>
-  <div class=" fixed left-0 top-20 z-50 w-full bg-white transition-all ">
+  <div class="fixed left-0 top-20 z-50 w-full bg-white transition-all">
     <div class="flex justify-center divide-x border-b border-t">
       <div
-        v-for="section in menu"
+        v-for="t in types"
         class="px-16 py-12">
-        <h2 class="mb-5 font-medium uppercase">{{ section.category }}</h2>
+        <h2 class="mb-5 font-medium uppercase">{{ t.name }}</h2>
         <ul class="space-y-2">
-          <li v-for="item in section.items">
-            <NuxtLink :to="item.link" class=" before:text-secondary flex items-center gap-1  hover:text-secondary transition-all">{{ item.name }}</NuxtLink>
+          <li
+            v-for="category in categories.filter(cat => cat.type.id === t.id)"
+            :key="category.id">
+            <button
+              @click="navigateTo({ path: `/catalog`, query: { category: category.id } })"
+              class="flex items-center gap-1 transition-all hover:text-secondary">
+              {{ category.name }}
+            </button>
           </li>
         </ul>
       </div>
@@ -17,7 +23,7 @@
         v-for="collection in collectionsList"
         :key="collection.name"
         to="/catalog"
-        class="text-sm hover:text-secondary transition-colors">
+        class="text-sm transition-colors hover:text-secondary">
         {{ collection.name }}
       </NuxtLink>
     </div>
@@ -25,6 +31,13 @@
 </template>
 
 <script setup>
+const categories = ref();
+const types = ref();
+
+const { data } = await useFetch("/api/menu/");
+categories.value = data.value.categories;
+types.value = data.value.types;
+
 const collectionsList = [
   {
     name: "DEHA",

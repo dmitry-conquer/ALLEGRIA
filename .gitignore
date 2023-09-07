@@ -5,6 +5,7 @@
 .nitro
 .cache
 dist
+supapass.txt
 
 # Node dependencies
 node_modules

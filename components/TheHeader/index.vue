@@ -12,17 +12,9 @@
         </button>
         <TheHeaderMenu class="group-hover:opacity-100 group-hover:visible opacity-0 invisible duration-300" />
       </div>
-      <div class="flex items-end gap-2">
-        <label
-          for="header-search"
-          class="uppercase tracking-widest"
-          >ПОШУК</label
-        >
-        <input
-          id="header-search"
-          type="text"
-          class="mb-1 max-w-[9rem] border-b border-primary-dark focus:outline-none" />
-      </div>
+
+
+      <TheHeaderSearch/>
       <div class="flex items-center gap-5">
         <NuxtLink to="/profile">
           <IconProfile class="h-6 w-6 " />
