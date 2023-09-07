@@ -57,8 +57,6 @@
 <script setup>
 const route = useRoute();
 
-const { data: res } = await useFetch("/api/result");
-console.log(res);
 /*
   get data
 */

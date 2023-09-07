@@ -157,7 +157,7 @@ const order = {
   description: "f222dssfsd234test",
   order_id: order_id,
   result_url: "https://allegria-store.netlify.app/",
-  server_url: "https://allegria-store.netlify.app/",
+  server_url: "https://allegria-store.netlify.app/api/result",
 };
 const dataOrder = ref(btoa(JSON.stringify(order)));
 const sign_string = `${private_key}${dataOrder.value}${private_key}`;
