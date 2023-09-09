@@ -86,17 +86,18 @@
             action="https://www.liqpay.ua/api/3/checkout"
             accept-charset="utf-8">
             <input
-              type="text"
+              type="hidden"
               name="data"
               v-model="dataOrder" />
             <input
-              type="text"
+              type="hidden"
               name="signature"
               v-model="signature" />
             <input
               type="image"
               src="//static.liqpay.ua/buttons/p1ru.radius.png" />
           </form>
+          <div id="liqpay_checkout">wqeqe</div>
           {{ dataOrder }}
           {{ signature }}
           <div class="mb-4 flex justify-between gap-4 text-base">
@@ -149,15 +150,15 @@ const public_key = "sandbox_i50745244528";
 const private_key = "sandbox_ac3mCIe5ymoND1pltWfBx0GtxkJ612e5JTSaZIHH";
 const order_id = Date.now();
 const order = {
-  public_key: "sandbox_i50745244528",
+  public_key: public_key,
   version: "3",
   action: "pay",
   amount: "3",
   currency: "UAH",
-  description: "f222dssfsd234test",
+  description: "f222ds11111sfsd234test",
   order_id: order_id,
   result_url: "https://allegria-store.netlify.app/",
-  server_url: "https://allegria-store.netlify.app/",
+  server_url: "https://hook.eu2.make.com/mhjspfki1tn27ka9q8f1eassyjdt7iox",
 };
 const dataOrder = ref(btoa(JSON.stringify(order)));
 const sign_string = `${private_key}${dataOrder.value}${private_key}`;
@@ -166,7 +167,4 @@ const signature = ref("");
 const sha1 = new jsSHA("SHA-1", "TEXT");
 sha1.update(sign_string);
 signature.value = sha1.getHash("B64");
-
-console.log("Кодовані дані:", dataOrder.value);
-console.log("Підпис:", signature.value);
 </script>
