@@ -1,6 +1,6 @@
 <template>
   <div class="container py-24">
-    <div>
+    <div v-if="pending">
       <!-- breadcrumbs -->
     </div>
 
@@ -10,51 +10,39 @@
         <h1 class="mb-12 text-3xl font-medium uppercase">{{ currentCategory }}</h1>
         <Filter class="mb-8" />
         <ClientOnly>
-          <TheSort
+          <CatalogSort
             class="mb-8"
             :quantity="quantity" />
         </ClientOnly>
-        <div class="relative grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
-          <article
-            v-for="product in sortedProducts"
-            :key="product.id"
-            class="p-4 shadow-md">
-            <NuxtLink
-              :to="`/catalog/${product.id}`"
-              class="group relative flex h-full flex-col items-center">
-              <div
-                v-if="product.label"
-                class="absolute right-4 top-4 z-10">
-                <span
-                  class="grid h-12 w-12 place-content-center rounded-full bg-secondary p-2 text-sm uppercase text-white">
-                  {{ product.label }}
-                </span>
-              </div>
-              <img
-                :src="product.image[0]"
-                :alt="product.name"
-                class="mb-8 transition-transform duration-300 group-hover:-rotate-1 group-hover:scale-[1.01]" />
-              <div class="text-center">
-                <h3 class="text-xl font-medium uppercase">{{ product.name }}</h3>
-                <p class="mb-1.5">{{ product.category.name }}</p>
-                <div class="inline-flex gap-2 text-sm font-medium">
-                  <span
-                    v-if="product.oldPrice"
-                    class="text-gray-300 line-through"
-                    >{{ product.oldPrice }} <span>UAH</span></span
-                  >
-                  <span class="text-secondary">{{ product.newPrice }} <span>UAH</span></span>
-                </div>
-              </div>
-            </NuxtLink>
-          </article>
-        </div>
+        <Transition
+          name="fade"
+          mode="out-in">
+          <SpinnerLoader
+            sizes="w-12 h-12"
+            v-if="pending" />
+          <div
+            v-else
+            class="relative grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
+            <CatalogItem
+              v-for="product in sortedProducts"
+              :key="product.id"
+              :product="product" />
+          </div>
+        </Transition>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+definePageMeta({
+  pageTransition: {
+    name: "page",
+    mode: "out-in",
+  },
+});
+
+const client = useSupabaseClient();
 const route = useRoute();
 
 /*
@@ -63,25 +51,24 @@ const route = useRoute();
 
 const category = computed(() => route.query.category);
 const size = computed(() => route.query.size);
-const { data: products } = await useFetch("/api/products", {
+const limit = 6;
+
+const { data: products, pending } = await useFetch("/api/products/", {
+  lazy: true,
   query: {
     category,
     size,
+    limit,
   },
   watch: [category, size],
 });
 
-const { data: categories } = await useFetch("/api/menu/", {
-  transform: response => {
-    return response.categories;
-  },
-});
+const { data: categories } = await client.from("categories").select("*");
 
 const currentCategory = computed(() => {
-  const current = categories.value.filter(item => {
+  const current = categories.filter(item => {
     return item.id === category.value;
   })[0]?.name;
-
   return current || "Всі товари";
 });
 
@@ -112,21 +99,12 @@ const sortedProducts = computed(() => {
 </script>
 
 <style lang="scss">
-.list-move,
-.list-enter-active,
-.list-leave-active {
-  transition: all 0.5s ease;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
 }
-
-.list-enter-from,
-.list-leave-to {
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
-  transform: translateX(30px);
-}
-
-/* ensure leaving items are taken out of layout flow so that moving
-   animations can be calculated correctly. */
-.list-leave-active {
-  position: absolute;
 }
 </style>

@@ -12,24 +12,34 @@ export default defineNuxtConfig({
         { name: "author", content: "Dmitry Conquer" },
       ],
     },
+    pageTransition: { name: "page", mode: "out-in" },
   },
   devtools: { enabled: false },
   runtimeConfig: {
     SUPABASE_KEY: process.env.SUPABASE_KEY,
     SUPABASE_URL: process.env.SUPABASE_URL,
+    public: {
+      LIQPAY_PRIVATE_KEY: process.env.LIQPAY_PRIVATE_KEY,
+      LIQPAY_PUBLIC_KEY: process.env.LIQPAY_PUBLIC_KEY,
+    },
   },
   spaLoadingTemplate: false,
-
+  routeRules: {
+    "/catalog": { ssr: false },
+  },
   css: ["~/assets/styles/style.scss"],
 
-  modules: ['nuxt-swiper', '@nuxtjs/supabase'],
+  modules: ["nuxt-swiper", "@nuxtjs/supabase", "@pinia/nuxt", "@pinia-plugin-persistedstate/nuxt"],
+  pinia: {
+    autoImports: ["defineStore"],
+  },
 
   swiper: {
-    modules: ['pagination', "parallax", "autoplay"], // all modules are imported by default
+    modules: ["pagination", "parallax", "autoplay"], // all modules are imported by default
   },
 
   supabase: {
-   redirect: false
+    redirect: false,
   },
 
   postcss: {
@@ -38,8 +48,8 @@ export default defineNuxtConfig({
       autoprefixer: {
         grid: true,
         overrideBrowserslist: "last 2 versions",
-        },
+      },
       ...(process.env.NODE_ENV === "production" ? { cssnano: {} } : {}),
     },
   },
-})
+});

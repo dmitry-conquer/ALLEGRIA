@@ -113,7 +113,6 @@ const createProduct = async () => {
     label: productLabel.value,
     image: imagesUrl.value,
   };
-  console.log(newProduct);
   const { error } = await client.from("products").insert(newProduct);
   console.log(error);
   if (!error) {

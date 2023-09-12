@@ -12,16 +12,80 @@
 
 @layer utilities {
   .dark-cover {
-   position: relative;
-   &::after {
-     content: '';
-     position: absolute;
-     width: 100%;
-     height: 100%;
-     top: 0;
-     left: 0;
-     background-color: #000;
-     opacity: 0.3;
-   }
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background-color: #000;
+      opacity: 0.3;
+    }
+  }
+
+  .toggle-checkbox {
+    input:checked + label {
+      &::after {
+        transform: translateY(-50%) scale(1);
+      }
+    }
+    label {
+      cursor: pointer;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      &::before {
+        content: "";
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+        background: #fff;
+        border: 1px solid #8f8f8f;
+        border-radius: 50%;
+      }
+      &::after {
+        content: "";
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        background: #e64926;
+        top: 50%;
+        border-radius: 50%;
+        transform: translateY(-50%) scale(0);
+        transition: transform 0.3s ease;
+        left: 2px;
+      }
+    }
+  }
+}
+
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.2s;
+}
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+  filter: blur(1rem);
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
   }
 }

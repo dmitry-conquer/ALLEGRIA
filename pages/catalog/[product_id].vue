@@ -12,7 +12,7 @@
             :alt="product.name"
             class="h-28 w-32 cursor-pointer object-cover" />
         </div>
-        <div class="max-h-[600px] grow">
+        <div class="relative max-h-[600px] grow">
           <ClientOnly>
             <VueMagnifier
               mg-shape="square"
@@ -21,106 +21,16 @@
               class="block h-full w-full object-cover" />
           </ClientOnly>
           <button
-            class="grid place-content-center rounded-full bg-white p-3"
+            @click="toFavorites"
+            class="group absolute right-5 top-5 grid place-content-center rounded-full bg-white p-2"
             type="button">
-            <IconFavorite class="h-5 w-5" />
+            <IconFavorite
+              :class="{ 'fill-red-500': isFavorite, 'stroke-red-500': isFavorite }"
+              class="h-6 w-6 transition-colors group-hover:fill-red-500 group-hover:stroke-red-500" />
           </button>
         </div>
       </div>
-      <div class="w-80 shrink-0 space-y-8">
-        <div>
-          <h1 class="text-3xl font-medium uppercase">{{ product.name }}</h1>
-          <p class="mb-2 text-lg font-light">{{ product.category.name }}</p>
-          <div class="inline-flex gap-2 font-medium">
-            <span class="text-lg text-gray-300 line-through">{{ product.oldPrice }} <span>ГРН</span></span>
-            <span class="text-xl text-secondary">{{ product.newPrice }} <span>ГРН</span></span>
-          </div>
-        </div>
-
-        <div>
-          <span class="mb-2 block">Розмір:</span>
-          <div class="flex flex-wrap gap-2">
-            <label
-              v-for="size in product.sizes"
-              :key="size"
-              class="cursor-pointer">
-              <input
-                type="radio"
-                name="size"
-                class="peer sr-only"
-                :value="size" />
-              <span
-                class="grid h-8 w-8 shrink-0 place-content-center border text-sm uppercase leading-none transition-colors hover:bg-secondary hover:text-white peer-checked:bg-secondary peer-checked:text-white"
-                >{{ size }}</span
-              >
-            </label>
-          </div>
-          <button
-            class="mt-2 text-sm underline transition-colors hover:text-secondary"
-            type="button">
-            Таблиця розмірів
-          </button>
-        </div>
-
-        <div>
-          <div class="mb-4">
-            <button
-              class="w-full border border-primary-dark bg-white px-5 py-3 font-medium uppercase"
-              type="button">
-              ДОДАТИ В КОРЗИНУ
-            </button>
-            <a
-              href=" https://prt.mn/tXx_BwPXiH"
-              class="block w-full border border-primary-dark bg-primary-dark px-5 py-3 text-center font-medium uppercase text-white">
-              КУПИТИ В ОДИН КЛІК
-            </a>
-            <a
-              href=" https://prt.mn/7nSsLSf3J"
-              class="block w-full border border-primary-dark bg-primary-dark px-5 py-3 text-center font-medium uppercase text-white">
-              КУПИТИ В ОДИН КЛІК
-            </a>
-          </div>
-
-          <form
-            method="POST"
-            action="https://www.liqpay.ua/api/3/checkout"
-            accept-charset="utf-8">
-            <input
-              type="hidden"
-              name="data"
-              v-model="dataOrder" />
-            <input
-              type="hidden"
-              name="signature"
-              v-model="signature" />
-            <input
-              type="image"
-              src="//static.liqpay.ua/buttons/p1ru.radius.png" />
-          </form>
-          <div id="liqpay_checkout">wqeqe</div>
-          {{ dataOrder }}
-          {{ signature }}
-          <div class="mb-4 flex justify-between gap-4 text-base">
-            <button
-              class="text-gray-300 transition-colors hover:text-secondary"
-              type="button">
-              Оплата та доставка
-            </button>
-            <button
-              class="text-gray-300 transition-colors hover:text-secondary"
-              type="button">
-              Повернення та обмін
-            </button>
-          </div>
-
-          <div>
-            <h2 class="mb-2 uppercase">ІНФОРМАЦІЯ ПРО ТОВАР</h2>
-            <p class="text-sm text-gray-600">
-              {{ product.description }}
-            </p>
-          </div>
-        </div>
-      </div>
+      <SingleInfo :product="product" />
     </div>
 
     <!-- slider -->
@@ -129,12 +39,20 @@
 </template>
 
 <script setup>
-import jsSHA from "jssha";
+definePageMeta({
+  pageTransition: {
+    name: "page",
+    mode: "out-in",
+  },
+});
 import VueMagnifier from "@websitebeaver/vue-magnifier";
 import "@websitebeaver/vue-magnifier/styles.css";
 
 const route = useRoute();
-const { data: product } = await useFetch(`/api/${route.params.product_id}`, {
+const client = useSupabaseClient();
+const user = useSupabaseUser();
+
+const { data: product, pending } = await useFetch(`/api/${route.params.product_id}`, {
   transform: response => {
     return response[0];
   },
@@ -143,28 +61,41 @@ const { data: product } = await useFetch(`/api/${route.params.product_id}`, {
 const selectedImage = ref(product.value.image[0]);
 
 /*
+  favorites
+*/
+
+const { data } = await client.from("users").select("favorites").eq("user_id", user.value.id).single();
+const favoritesList = ref([...(data.favorites ?? "")]);
+const isFavorite = computed(() => {
+  return Object.values(favoritesList.value).some(item => item == product.value.id);
+});
+const toFavorites = async () => {
+  let updatedFavorites;
+  if (isFavorite.value === false) {
+    updatedFavorites = [+product.value.id, ...favoritesList.value];
+  } else {
+    const index = favoritesList.value.indexOf(product.value.id);
+    updatedFavorites = favoritesList.value.splice(index, 1);
+  }
+  const { error } = await client
+    .from("users")
+    .update({ favorites: updatedFavorites })
+    .eq("user_id", user.value.id)
+    .select();
+  const { data } = await client.from("users").select("favorites").eq("user_id", user.value.id).single();
+  favoritesList.value = data.favorites ?? "";
+};
+
+/*
   pay
 */
 
-const public_key = "sandbox_i50745244528";
-const private_key = "sandbox_ac3mCIe5ymoND1pltWfBx0GtxkJ612e5JTSaZIHH";
-const order_id = Date.now();
-const order = {
-  public_key: public_key,
-  version: "3",
-  action: "pay",
-  amount: "3",
-  currency: "UAH",
-  description: "f222ds11111sfsd234test",
-  order_id: order_id,
-  result_url: "https://allegria-store.netlify.app/",
-  server_url: "https://hook.eu2.make.com/mhjspfki1tn27ka9q8f1eassyjdt7iox",
-};
-const dataOrder = ref(btoa(JSON.stringify(order)));
-const sign_string = `${private_key}${dataOrder.value}${private_key}`;
-const signature = ref("");
-
-const sha1 = new jsSHA("SHA-1", "TEXT");
-sha1.update(sign_string);
-signature.value = sha1.getHash("B64");
+useHead({
+  script: [
+    {
+      src: "https://static.liqpay.ua/libjs/checkout.js",
+      defer: true,
+    },
+  ],
+});
 </script>

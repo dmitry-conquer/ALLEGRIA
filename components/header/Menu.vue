@@ -31,12 +31,10 @@
 </template>
 
 <script setup>
-const categories = ref();
-const types = ref();
+const client = useSupabaseClient()
 
-const { data } = await useFetch("/api/menu/");
-categories.value = data.value.categories;
-types.value = data.value.types;
+const { data: categories } = await client.from("categories").select("*, type(*)");
+const { data: types } = await client.from("clothes_type").select("*");
 
 const collectionsList = [
   {

@@ -3,7 +3,7 @@ import { serverSupabaseClient } from "#supabase/server";
 export default eventHandler(async event => {
   const client = await serverSupabaseClient(event);
 
-  const { category, size, limit } = getQuery(event);
+  const { category, size, limit, ids } = getQuery(event);
 
   const query = client.from("products").select("*, category(name)");
 
@@ -15,6 +15,9 @@ export default eventHandler(async event => {
   }
   if (limit) {
     query.limit(limit);
+  }
+  if (ids) {
+    query.in("id", ids);
   }
 
   const { data } = await query;
