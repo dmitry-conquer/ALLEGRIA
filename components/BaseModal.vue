@@ -1,7 +1,7 @@
 <template>
   <div class="fixed inset-0 z-50 grid h-full w-full place-content-center bg-black/50">
     <div
-      class="relative max-w-2xl rounded-md bg-white p-6"
+      class="relative min-w-[600px] max-w-2xl rounded-md bg-white p-6"
       ref="trigger">
       <button
         @click="emit('close-modal')"
@@ -20,13 +20,6 @@ const trigger = ref(null);
 
 onClickOutside(trigger, () => emit("close-modal"));
 
-defineProps({
-  isOpen: {
-    type: Boolean,
-    required: true,
-    default: false,
-  },
-});
 const emit = defineEmits({
   "close-modal": null,
 });

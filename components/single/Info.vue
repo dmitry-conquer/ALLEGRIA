@@ -37,11 +37,8 @@
     <div>
       <div class="mb-4">
         <SingleButtonToCart :product="product" />
-        <NuxtLink
-          to="/cart"
-          class="block w-full border border-primary-dark bg-primary-dark px-5 py-3 text-center font-medium uppercase text-white">
-          КУПИТИ В ОДИН КЛІК
-        </NuxtLink>
+        <SingleButtonBuy :product="product" />
+    
       </div>
       <div id="liqpay_checkout"></div>
       <div class="mb-4 flex justify-between gap-4 text-base">

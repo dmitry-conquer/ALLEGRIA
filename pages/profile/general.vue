@@ -69,7 +69,6 @@
 </template>
 
 <script setup>
-const { emailValid, telValid, isEmpty } = useFormValidator();
 const { toast, toastOptions } = useToast();
 
 const { data: profile, error } = await useFetch("/api/profile/", {
@@ -84,46 +83,46 @@ const tel = ref(profile.value.tel);
 const resultMessage = ref("");
 const loading = ref(false);
 
-const updateUser = async () => {
-  loading.value = true;
-  let error = 0;
-  if (!telValid(tel.value)) {
-    resultMessage.value = "Перевірте номер!";
-    error++;
-  } else if (!emailValid(email.value)) {
-    resultMessage.value = "Перевірте пошту!";
-    error++;
-  } else if (isEmpty(tel.value) || isEmpty(email.value) || isEmpty(firstName.value) || isEmpty(lastName.value)) {
-    resultMessage.value = "Заповніть всі поля!";
-    error++;
-  }
-  if (error > 0) {
-    toast.error(resultMessage.value, toastOptions);
-    return;
-  } else {
-    try {
-      const updatedValues = {
-        first_name: firstName.value,
-        last_name: lastName.value,
-        email: email.value,
-        tel: tel.value,
-      };
-      const { data, error } = await useFetch("/api/profile/", {
-        method: "POST",
-        body: updatedValues,
-      });
+// const updateUser = async () => {
+//   loading.value = true;
+//   let error = 0;
+//   if (!telValid(tel.value)) {
+//     resultMessage.value = "Перевірте номер!";
+//     error++;
+//   } else if (!emailValid(email.value)) {
+//     resultMessage.value = "Перевірте пошту!";
+//     error++;
+//   } else if (isEmpty(tel.value) || isEmpty(email.value) || isEmpty(firstName.value) || isEmpty(lastName.value)) {
+//     resultMessage.value = "Заповніть всі поля!";
+//     error++;
+//   }
+//   if (error > 0) {
+//     toast.error(resultMessage.value, toastOptions);
+//     return;
+//   } else {
+//     try {
+//       const updatedValues = {
+//         first_name: firstName.value,
+//         last_name: lastName.value,
+//         email: email.value,
+//         tel: tel.value,
+//       };
+//       const { data, error } = await useFetch("/api/profile/", {
+//         method: "POST",
+//         body: updatedValues,
+//       });
 
-      if (data.value) {
-        toast.success("Оновлено!", toastOptions);
-        loading.value = false;
-      }
-      if (error.value) throw error;
-    } catch (error) {
-      toast.error("Помилка оновлення!", toastOptions);
-      loading.value = false;
-    }
-  }
-};
+//       if (data.value) {
+//         toast.success("Оновлено!", toastOptions);
+//         loading.value = false;
+//       }
+//       if (error.value) throw error;
+//     } catch (error) {
+//       toast.error("Помилка оновлення!", toastOptions);
+//       loading.value = false;
+//     }
+//   }
+// };
 </script>
 
 <style lang="scss">

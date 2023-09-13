@@ -111,7 +111,9 @@
         <label for="cart-cash">При отримані замовлення</label>
       </div>
     </div>
-    <CartOrderButton @pay="pay" />
+    <CartOrderButton
+      @pay="pay"
+      :disable="cart.products.length <= 0" />
   </div>
 </template>
 

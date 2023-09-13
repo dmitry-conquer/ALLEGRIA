@@ -2,7 +2,7 @@
   <header class="fixed left-0 top-0 z-50 w-full bg-white">
     <div class="container flex h-20 items-center justify-between">
       <NuxtLink to="/">
-        <Logo class="w-40 h-6" />
+        <Logo class="h-6 w-40" />
       </NuxtLink>
       <div class="group py-8">
         <NuxtLink
@@ -17,10 +17,7 @@
       <div class="flex items-center gap-5">
         <HeaderProfile />
         <HeaderFavorites />
-
-        <NuxtLink to="/cart">
-          <IconCart class="h-7 w-7 transition-colors hover:text-secondary" />
-        </NuxtLink>
+        <HeaderCart />
       </div>
     </div>
   </header>

@@ -1,6 +1,7 @@
 <template>
   <div class="mx-auto max-w-4xl py-32">
     <h1 class="mb-8 text-center text-3xl font-medium uppercase">Створити профіль</h1>
+    {{ loading }}
     <form @submit.prevent="createUser">
       <div class="grid grid-cols-2 gap-6">
         <div>
@@ -88,6 +89,7 @@
         <input
           type="checkbox"
           id="check-policy"
+          v-model="policy"
           class="h-5 w-5 accent-secondary" />
         <label for="check-policy"
           >Я согласен с
@@ -99,15 +101,21 @@
         >
       </div>
       <div class="mt-8 flex flex-col items-center justify-center gap-4">
-        <button
-          type="submit"
-          class="rounded-sm bg-primary-dark px-4 py-3 text-2xl uppercase text-white transition-colors hover:bg-primary-dark/90">
-          ЗАРЕЄСТРУВАТИСЯ
-        </button>
+        <div>
+          <SpinnerLoader
+            v-if="loading"
+            sizes="w-7 h-7" />
+          <button
+            v-else
+            type="submit"
+            class="rounded-sm bg-primary-dark px-4 py-3 text-2xl uppercase text-white transition-colors hover:bg-primary-dark/90">
+            ЗАРЕЄСТРУВАТИСЯ
+          </button>
+        </div>
         <p>
           В мене вже є акаунт
           <button
-          type="button"
+            type="button"
             @click="isOpen = true"
             class="text-secondary hover:underline">
             увійти
@@ -133,53 +141,32 @@ definePageMeta({
     mode: "out-in",
   },
 });
-const client = useSupabaseClient();
-const { toast, toastOptions } = useToast();
 
 const isOpen = ref(false);
+const loading = ref(false);
+
 const firstName = ref("");
 const lastName = ref("");
 const email = ref("");
 const tel = ref("");
 const password = ref("");
 const repeatPassword = ref("");
+const policy = ref(false);
 
-async function createUser() {
-  try {
-    const { data, error } = await client.auth.signUp({
-      email: email.value,
-      email_confirm: false,
-      password: password.value,
-    });
-    if (data) {
-      try {
-        const { data: profile, error: userError } = await client
-          .from("users")
-          .insert({
-            email: email.value,
-            password: password.value,
-            first_name: firstName.value,
-            last_name: lastName.value,
-            tel: tel.value,
-            user_id: data.user.id,
-          })
-          .select();
-        if (profile) {
-          toast.success(`Успішна реєстрація!`, toastOptions);
-          setTimeout(() => {
-            navigateTo("/");
-          }, 2000);
-        }
-        if (userError) throw error;
-      } catch (error) {
-        toast.success(error.message, toastOptions);
-      }
-    }
-    if (error) throw error;
-  } catch (error) {
-    toast.success(error.message, toastOptions);
-  }
-}
+const createUser = async () => {
+  loading.value = true;
+  const credetials = {
+    firstName: firstName.value,
+    lastName: lastName.value,
+    email: email.value,
+    tel: tel.value,
+    password: password.value,
+    repeatPassword: repeatPassword.value,
+    policy: policy.value,
+  };
+  const result = await useCreateUser(credetials);
+  loading.value = result;
+};
 </script>
 
 <style lang="scss"></style>
