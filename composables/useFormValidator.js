@@ -7,22 +7,22 @@ export const useFormValidator = credentials => {
     errorMessage = "Заповніть всі поля";
     return { errors, errorMessage };
   }
-  if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/.test(credentials.email)) {
+  if (credentials.email && !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/.test(credentials.email)) {
     errors++;
     errorMessage = "Некоректна пошта";
     return { errors, errorMessage };
   }
-  if (!/^(\+380\s\d{2}\s\d{3}-\d{2}-\d{2})$/.test(credentials.tel)) {
+  if (credentials.tel && !/^(\+380\s\d{2}\s\d{3}-\d{2}-\d{2})$/.test(credentials.tel)) {
     errors++;
     errorMessage = "Некоректний номер телефону";
     return { errors, errorMessage };
   }
-  if (credentials.repeatPassword !== credentials.password) {
+  if (credentials.tel && credentials.repeatPassword !== credentials.password) {
     errors++;
     errorMessage = "Паролі не співпадають";
     return { errors, errorMessage };
   }
-  if (!credentials.policy) {
+  if (credentials.tel && !credentials.policy) {
     errors++;
     errorMessage = "Необхідно погодитися з політикою конфіденційності";
     return { errors, errorMessage };

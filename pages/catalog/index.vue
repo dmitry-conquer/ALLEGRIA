@@ -7,7 +7,7 @@
     <div class="flex">
       <TheSidebar />
       <div class="grow px-8">
-        <h1 class="mb-12 text-3xl font-medium uppercase">{{ currentCategory }}</h1>
+        <CatalogMainTitle :category="category" />
         <Filter class="mb-8" />
         <ClientOnly>
           <CatalogSort
@@ -41,13 +41,7 @@ definePageMeta({
     mode: "out-in",
   },
 });
-
-const client = useSupabaseClient();
 const route = useRoute();
-
-/*
-  get data
-*/
 
 const category = computed(() => route.query.category);
 const size = computed(() => route.query.size);
@@ -61,15 +55,6 @@ const { data: products, pending } = await useFetch("/api/products/", {
     limit,
   },
   watch: [category, size],
-});
-
-const { data: categories } = await client.from("categories").select("*");
-
-const currentCategory = computed(() => {
-  const current = categories.filter(item => {
-    return item.id === category.value;
-  })[0]?.name;
-  return current || "Всі товари";
 });
 
 /*

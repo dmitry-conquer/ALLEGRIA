@@ -60,31 +60,7 @@
     </div>
 
     <!-- delivery -->
-    <div class="mb-4">
-      <h2 class="mb-2 text-lg font-medium">Доставка</h2>
-      <div
-        class="mb-2"
-        v-if="profile.delivery">
-        <p>
-          {{ addressString }}
-        </p>
-        <p>
-          {{ deliveryString }}
-        </p>
-      </div>
-      <NuxtLink
-        v-else
-        to="/profile/address"
-        class="text-secondary hover:underline"
-        >Додати дані доставки</NuxtLink
-      >
-      <NuxtLink
-        v-if="profile.delivery"
-        to="/profile/address"
-        class="text-secondary hover:underline"
-        >Редагувати</NuxtLink
-      >
-    </div>
+    <CartDelivery :deliveryData="profile.delivery" />
 
     <!-- payment -->
     <div>
@@ -113,7 +89,7 @@
     </div>
     <CartOrderButton
       @pay="pay"
-      :disable="cart.products.length <= 0" />
+      :disable="cart.products.length <= 0 || profile.delivery === null" />
   </div>
 </template>
 
@@ -143,14 +119,8 @@ const firstName = ref(profile.value.first_name);
 const lastName = ref(profile.value.last_name);
 const email = ref(profile.value.email);
 const tel = ref(profile.value.tel);
-const address = ref(profile.value.delivery?.address || "");
-const street = ref(profile.value.delivery?.street || "");
-const house = ref(profile.value.delivery?.house || "");
-const appart = ref(profile.value.delivery?.appart || "");
-const deliveryMethod = ref(profile.value.delivery?.deliveryMethod || "");
+
 const paymentMethod = ref("online");
-const addressString = ref(`м. ${address.value}, вул. ${street.value}, буд. ${house.value}, кв. ${appart.value}`);
-const deliveryString = ref(`Спосіб доставки: ${deliveryMethod.value}`);
 
 const description = cart.products.map(p => p.name).join(", ");
 const order_id = `${user.value.id}-${Date.now()}`;

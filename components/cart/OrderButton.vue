@@ -21,7 +21,7 @@
 <script setup>
 defineProps({
   disable: {
-    type: Boolean,
+    type: [Boolean, null],
     required: false,
   },
 });

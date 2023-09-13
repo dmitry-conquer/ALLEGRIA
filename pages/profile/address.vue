@@ -75,22 +75,23 @@
         v-model="appart" />
     </div>
     <div class="col-span-2 flex justify-center">
-      <button
-        @click="updateDelivary"
-        class="mx-auto mt-8 flex h-11 w-full max-w-[11rem] justify-center rounded-sm bg-primary-dark px-3 py-2 text-center text-lg uppercase text-white transition-colors hover:bg-primary-dark/90"
-        type="submit">
+      <div class="mt-6 flex h-11 justify-center">
         <SpinnerLoader
           v-if="loading"
           sizes="w-7 h-7" />
-        <span v-else>ЗБЕРЕГТИ</span>
-      </button>
+        <button
+          v-else
+          @click="updateAddress"
+          class="flex rounded-sm bg-primary-dark px-12 py-2 text-center text-lg uppercase text-white transition-colors hover:bg-primary-dark/90"
+          type="submit">
+          ЗБЕРЕГТИ
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-const { toast, toastOptions } = useToast();
-
 const { data: profile, error } = await useFetch("/api/profile/", {
   method: "GET",
   headers: useRequestHeaders(["cookie"]),
@@ -104,7 +105,7 @@ const appart = ref(profile.value.delivery?.appart || "");
 const deliveryMethod = ref(profile.value.delivery?.deliveryMethod || "none");
 const loading = ref(false);
 
-const updateDelivary = async () => {
+const updateAddress = async () => {
   loading.value = true;
   const deliveryData = {
     deliveryMethod: deliveryMethod.value,
@@ -113,18 +114,7 @@ const updateDelivary = async () => {
     house: house.value,
     appart: appart.value,
   };
-  const { data, error } = await useFetch("/api/profile/", {
-    method: "POST",
-    body: {
-      delivery: deliveryData,
-    },
-  });
-  if (data.value) {
-    toast.success("Оновлено!", toastOptions);
-  }
-  if (error.value) {
-    toast.error("Помилка оновлення!", toastOptions);
-  }
+  await useUpdateAddress(deliveryData);
   loading.value = false;
 };
 </script>
