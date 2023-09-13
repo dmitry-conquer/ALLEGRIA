@@ -25,7 +25,7 @@ export default defineNuxtConfig({
   },
   spaLoadingTemplate: false,
   routeRules: {
-    "/catalog": { ssr: false },
+    // "/catalog": { ssr: false },
   },
   css: ["~/assets/styles/style.scss"],
 
