@@ -6,10 +6,10 @@
       <div>
         <ul class="flex flex-wrap gap-8">
           <li
-            v-for="p in products"
+            v-for="p in comments1"
             :key="p.id">
             <p>{{ p.name }}</p>
-            <img :src="p.image[0]" class="w-[100px] h-[130px]" alt="">
+            <p>{{ p.body }}</p>
           </li>
         </ul>
       </div>
@@ -18,22 +18,10 @@
       <div>
         <ul class="flex flex-wrap gap-8">
           <li
-            v-for="p in products2"
+            v-for="p in comments2"
             :key="p.id">
             <p>{{ p.name }}</p>
-            <img :src="p.image[0]" class="w-[100px] h-[130px]" alt="">
-          </li>
-        </ul>
-      </div>
-      <hr />
-      <h2 class="text-center text-2xl font-bold uppercase text-indigo-500">1. useFetch in components</h2>
-      <div>
-        <ul class="flex flex-wrap gap-8">
-          <li
-            v-for="p in products3"
-            :key="p.id">
-            <p>{{ p.name }}</p>
-            <img :src="p.image[0]" class="w-[100px] h-[130px]" alt="">
+            <p>{{ p.body }}</p>
           </li>
         </ul>
       </div>
@@ -44,21 +32,9 @@
 <script setup>
 const client = useSupabaseClient();
 
-const { data: products } = await client.from("products").select("*");
-
-const { data: products2 } = await useAsyncData("products2", async () => {
-  const { data } = await client.from("products").select("*");
-  return data;
+const { data: comments1 } = useFetch("https://jsonplaceholder.typicode.com/comments", {
+  lazy: true,
 });
 
-const { data: products3 } = await useLazyAsyncData(
-  "products3",
-  async () => {
-    const { data } = await client.from("products").select("*");
-    return data;
-  },
-  {
-    server: false,
-  },
-);
+const { data: comments2 } = useFetch("https://jsonplaceholder.typicode.com/comments", {});
 </script>

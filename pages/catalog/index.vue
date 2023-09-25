@@ -60,7 +60,8 @@ const total = computed(() => {
 });
 
 const { data: products, pending } = await useFetch("/api/products/", {
-  lazy: true,
+  // lazy: true,
+  server: false,
   query: {
     category,
     size,
