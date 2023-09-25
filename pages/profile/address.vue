@@ -92,17 +92,16 @@
 </template>
 
 <script setup>
-const { data: profile, error } = await useFetch("/api/profile/", {
-  method: "GET",
-  headers: useRequestHeaders(["cookie"]),
-});
+const user = useSupabaseUser();
+const client = useSupabaseClient();
+const { data: profile, error } = await client.from("users").select("*").eq("user_id", user.value.id).single();
 if (error) console.log(error);
 
-const address = ref(profile.value.delivery?.address || "");
-const street = ref(profile.value.delivery?.street || "");
-const house = ref(profile.value.delivery?.house || "");
-const appart = ref(profile.value.delivery?.appart || "");
-const deliveryMethod = ref(profile.value.delivery?.deliveryMethod || "none");
+const address = ref(profile.delivery?.address || "");
+const street = ref(profile.delivery?.street || "");
+const house = ref(profile.delivery?.house || "");
+const appart = ref(profile.delivery?.appart || "");
+const deliveryMethod = ref(profile.delivery?.deliveryMethod || "none");
 const loading = ref(false);
 
 const updateAddress = async () => {

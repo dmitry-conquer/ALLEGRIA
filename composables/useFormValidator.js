@@ -22,7 +22,7 @@ export const useFormValidator = credentials => {
     errorMessage = "Паролі не співпадають";
     return { errors, errorMessage };
   }
-  if (credentials.tel && !credentials.policy) {
+  if (credentials.policy && credentials.policy === false) {
     errors++;
     errorMessage = "Необхідно погодитися з політикою конфіденційності";
     return { errors, errorMessage };

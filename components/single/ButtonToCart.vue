@@ -8,7 +8,8 @@
 </template>
 
 <script setup>
-import { useCartStore } from "~/stores/cart";
+import { useCartStore } from '~/stores/cart';
+const { toast, toastOptions } = useToast();
 
 const props = defineProps({
   product: {
@@ -22,6 +23,7 @@ const cart = useCartStore();
 
 const addToCart = () => {
   cart.products.push(props.product);
+  toast.success("Додано до кошика!", toastOptions);
 };
 </script>
 

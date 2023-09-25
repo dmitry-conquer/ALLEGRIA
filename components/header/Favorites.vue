@@ -9,7 +9,7 @@
       v-if="isOpen"
       :isOpen="isOpen"
       @close-modal="isOpen = false">
-      <HeaderLoginForm @close-modal="isOpen = false" />
+      <LoginForm @close-modal="isOpen = false" />
     </BaseModal>
   </Transition>
 </template>
@@ -20,12 +20,10 @@ const user = useSupabaseUser();
 const isOpen = ref(false);
 
 const loginHandle = () => {
-  if (user.value) {
-    navigateTo("/profile/favorites");
-  } else {
+  if (!user.value) {
     isOpen.value = true;
+    return;
   }
+  navigateTo("/profile/favorites");
 };
 </script>
-
-<style lang="scss"></style>

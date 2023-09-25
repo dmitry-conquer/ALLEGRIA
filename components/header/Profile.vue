@@ -9,7 +9,7 @@
       v-if="isOpen"
       :isOpen="isOpen"
       @close-modal="isOpen = false">
-      <HeaderLoginForm @close-modal="isOpen = false"/>
+      <LoginForm @close-modal="isOpen = false"/>
     </BaseModal>
   </Transition>
 </template>

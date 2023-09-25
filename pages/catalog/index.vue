@@ -1,6 +1,6 @@
 <template>
   <div class="container py-24">
-    <div v-if="pending">
+    <div>
       <!-- breadcrumbs -->
     </div>
 
@@ -14,21 +14,26 @@
             class="mb-8"
             :quantity="quantity" />
         </ClientOnly>
-        <Transition
-          name="fade"
-          mode="out-in">
+        <div class="relative grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
+          <CatalogItem
+            v-for="product in sortedProducts"
+            :key="product.id"
+            :product="product" />
+        </div>
+        <div class="mt-10 flex h-11 justify-center gap-4">
           <SpinnerLoader
-            sizes="w-12 h-12"
-            v-if="pending" />
-          <div
-            v-else
-            class="relative grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
-            <CatalogItem
-              v-for="product in sortedProducts"
-              :key="product.id"
-              :product="product" />
+            v-if="pending"
+            sizes="w-10 h-10" />
+          <div v-else>
+            <button
+              v-if="hasProducts"
+              @click="page++"
+              class="bg-primary-dark px-4 py-2 uppercase text-white transition-colors enabled:hover:bg-primary-dark/70"
+              type="button">
+              Показати більше
+            </button>
           </div>
-        </Transition>
+        </div>
       </div>
     </div>
   </div>
@@ -42,20 +47,34 @@ definePageMeta({
   },
 });
 const route = useRoute();
+const client = useSupabaseClient();
 
 const category = computed(() => route.query.category);
 const size = computed(() => route.query.size);
+const from = computed(() => route.query.from);
+const to = computed(() => route.query.to);
 const limit = 6;
+const page = ref(1);
+const total = computed(() => {
+  return limit * page.value;
+});
 
 const { data: products, pending } = await useFetch("/api/products/", {
   lazy: true,
   query: {
     category,
     size,
-    limit,
+    total,
+    from,
+    to,
   },
-  watch: [category, size],
+  watch: [category, size, page, from, to],
 });
+
+const { count, error } = await client.from("products").select("*", { count: "exact", head: true });
+if (error) console.log(error);
+
+const hasProducts = computed(() => products.value?.length % limit === 0 && products.value?.length <= count);
 
 /*
   products quantity

@@ -63,6 +63,7 @@
     <CartDelivery :deliveryData="profile.delivery" />
 
     <!-- payment -->
+    {{ paymentMethod }}
     <div>
       <h2 class="mb-2 text-lg font-medium">Спосіб оплати</h2>
       <div class="toggle-checkbox">
@@ -89,6 +90,7 @@
     </div>
     <CartOrderButton
       @pay="pay"
+      :paymentMethod="paymentMethod"
       :disable="cart.products.length <= 0 || profile.delivery === null" />
   </div>
 </template>
@@ -103,10 +105,8 @@ useHead({
   ],
 });
 import { useCartStore } from "~/stores/cart";
-import { useOrderStore } from "~/stores/order";
 
 const cart = useCartStore();
-const orderStore = useOrderStore();
 const user = useSupabaseUser();
 const runtimeConfig = useRuntimeConfig();
 
@@ -121,6 +121,10 @@ const email = ref(profile.value.email);
 const tel = ref(profile.value.tel);
 
 const paymentMethod = ref("online");
+const addressString = ref(
+  `м. ${profile.value.delivery.address}, вул. ${profile.value.delivery.street}, буд. ${profile.value.delivery.house}, кв. ${profile.value.delivery.appart}`,
+);
+const deliveryString = ref(`Спосіб доставки: ${profile.value.delivery.deliveryMethod}`);
 
 const description = cart.products.map(p => p.name).join(", ");
 const order_id = `${user.value.id}-${Date.now()}`;
@@ -139,43 +143,40 @@ const sign_string = `${runtimeConfig.public.LIQPAY_PRIVATE_KEY}${dataOrder.value
 const { signature } = useSha1(sign_string);
 
 const pay = () => {
-  LiqPayCheckout.init({
-    data: dataOrder.value,
-    signature: signature.value,
-    embedTo: "#liqpay_checkout",
-    language: "uk",
-    mode: "embed", // embed || popup
-  }).on("liqpay.callback", async function (data) {
-    const resultOrder = {
-      user_id: profile.value.id,
-      order_id: order_id,
-      products: cart.products.map(p => p.id),
-      amount: cart.totalPrice,
-      description: description,
-      status: data.status,
-      delivery: `${addressString.value}. ${deliveryString.value}`,
-      payment: paymentMethod.value,
-    };
-    const { data: result, error } = await useFetch("/api/order/", {
-      method: "POST",
-      body: resultOrder,
+  const resultOrder = {
+    user_id: profile.value.id,
+    auth_id: user.value.id,
+    order_id: order_id,
+    products: cart.products.map(p => p.id),
+    amount: cart.totalPrice,
+    description: description,
+    delivery: `${addressString.value}. ${deliveryString.value}`,
+    payment: paymentMethod.value,
+  };
+  if (paymentMethod.value === "online") {
+    LiqPayCheckout.init({
+      data: dataOrder.value,
+      signature: signature.value,
+      embedTo: "#liqpay_checkout",
+      language: "uk",
+      mode: "embed", // embed || popup
+    }).on("liqpay.callback", async function (data) {
+      resultOrder.status = data.status;
+      useSaveOrder(resultOrder);
+      cart.products = [];
     });
-    if (result.value) {
-      alert("Ok!");
-      orderStore.currentOrderID = order_id;
-      navigateTo("/receipt");
-    }
-    if (error.value) {
-      alert("Error!");
-    }
-  });
-  // .on("liqpay.ready", function (data) {
-  //   // ready
-  //   console.log(data);
-  // })
-  // .on("liqpay.close", function (data) {
-  //   console.log(data);
-  //   // close
-  // });
+    // .on("liqpay.ready", function (data) {
+    //   // ready
+    //   console.log(data);
+    // })
+    // .on("liqpay.close", function (data) {
+    //   console.log(data);
+    //   // close
+    // });
+  } else if (paymentMethod.value === "cash") {
+    resultOrder.status = "not payed";
+    useSaveOrder(resultOrder);
+    cart.products = [];
+  }
 };
 </script>

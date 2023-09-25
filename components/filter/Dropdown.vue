@@ -11,7 +11,7 @@
     <Transition name="dropdown">
       <div
         v-if="isOpen"
-        class="absolute z-30 left-0 top-full w-full border-x border-b bg-white px-2 py-2">
+        class="absolute left-0 top-full z-30 w-full border-x border-b bg-white px-2 py-2">
         <slot></slot>
       </div>
     </Transition>

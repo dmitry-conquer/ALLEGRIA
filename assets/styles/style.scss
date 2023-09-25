@@ -62,6 +62,12 @@
   }
 }
 
+@layer components {
+  .router-link-active {
+    @apply text-secondary;
+  }
+}
+
 .page-enter-active,
 .page-leave-active {
   transition: all 0.2s;
@@ -89,3 +95,4 @@
     transform: translateX(0);
   }
 }
+

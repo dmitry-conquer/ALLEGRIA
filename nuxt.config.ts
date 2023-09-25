@@ -41,6 +41,11 @@ export default defineNuxtConfig({
   supabase: {
     redirect: false,
   },
+  delayHydration: {
+    // enables nuxt-delay-hydration in dev mode for testing
+    debug: process.env.NODE_ENV === "development",
+    mode: "mount",
+  },
 
   postcss: {
     plugins: {

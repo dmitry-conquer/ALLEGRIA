@@ -9,7 +9,7 @@
 
 <script setup>
 import { useCartStore } from "~/stores/cart";
-const cart = useCartStore();
+const cartStore = useCartStore();
 
 const props = defineProps({
   product: {
@@ -20,7 +20,8 @@ const props = defineProps({
 });
 
 const addToCart = () => {
-  cart.products.push(props.product);
+  cartStore.products = []
+  cartStore.products.push(props.product);
   navigateTo('/cart')
 };
 </script>

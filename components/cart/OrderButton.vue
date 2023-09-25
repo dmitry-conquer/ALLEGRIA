@@ -19,10 +19,15 @@
 </template>
 
 <script setup>
-defineProps({
+const props = defineProps({
   disable: {
     type: [Boolean, null],
     required: false,
+  },
+  paymentMethod: {
+    type: String,
+    required: true,
+    default: "online",
   },
 });
 const emit = defineEmits({
@@ -32,7 +37,9 @@ const emit = defineEmits({
 const isOpen = ref(false);
 
 const handlePay = () => {
-  isOpen.value = true;
+  if (props.paymentMethod === "online") {
+    isOpen.value = true;
+  }
   setTimeout(() => {
     emit("pay");
   }, 300);

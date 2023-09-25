@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="updateUser">
+  <form @submit.prevent="handleUpdateUser">
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
       <div>
         <label
@@ -57,72 +57,42 @@
           v-model="email" />
       </div>
     </div>
-    <button
-      class="mx-auto mt-8 flex h-11 w-full max-w-[11rem] justify-center rounded-sm bg-primary-dark px-3 py-2 text-center text-lg uppercase text-white transition-colors hover:bg-primary-dark/90"
-      type="submit">
-      <SpinnerLoader
-        v-if="loading"
-        sizes="w-7 h-7" />
-      <span v-else>ОНОВИТИ</span>
-    </button>
+    <div class="mt-6 flex h-11 justify-center">
+        <SpinnerLoader
+          v-if="loading"
+          sizes="w-7 h-7" />
+        <button
+          v-else
+          @click="handleUpdateUser"
+          class="flex rounded-sm bg-primary-dark px-12 py-2 text-center text-lg uppercase text-white transition-colors hover:bg-primary-dark/90"
+          type="submit">
+          ЗБЕРЕГТИ
+        </button>
+      </div>
   </form>
 </template>
 
 <script setup>
-const { toast, toastOptions } = useToast();
+const user = useSupabaseUser();
+const client = useSupabaseClient();
 
-const { data: profile, error } = await useFetch("/api/profile/", {
-  method: "GET",
-  headers: useRequestHeaders(["cookie"]),
-});
-
-const firstName = ref(profile.value.first_name);
-const lastName = ref(profile.value.last_name);
-const email = ref(profile.value.email);
-const tel = ref(profile.value.tel);
-const resultMessage = ref("");
+const { data: profile } = await client.from("users").select("*").eq("user_id", user.value.id).single();
+const firstName = ref(profile.first_name);
+const lastName = ref(profile.last_name);
+const email = ref(profile.email);
+const tel = ref(profile.tel);
 const loading = ref(false);
 
-// const updateUser = async () => {
-//   loading.value = true;
-//   let error = 0;
-//   if (!telValid(tel.value)) {
-//     resultMessage.value = "Перевірте номер!";
-//     error++;
-//   } else if (!emailValid(email.value)) {
-//     resultMessage.value = "Перевірте пошту!";
-//     error++;
-//   } else if (isEmpty(tel.value) || isEmpty(email.value) || isEmpty(firstName.value) || isEmpty(lastName.value)) {
-//     resultMessage.value = "Заповніть всі поля!";
-//     error++;
-//   }
-//   if (error > 0) {
-//     toast.error(resultMessage.value, toastOptions);
-//     return;
-//   } else {
-//     try {
-//       const updatedValues = {
-//         first_name: firstName.value,
-//         last_name: lastName.value,
-//         email: email.value,
-//         tel: tel.value,
-//       };
-//       const { data, error } = await useFetch("/api/profile/", {
-//         method: "POST",
-//         body: updatedValues,
-//       });
-
-//       if (data.value) {
-//         toast.success("Оновлено!", toastOptions);
-//         loading.value = false;
-//       }
-//       if (error.value) throw error;
-//     } catch (error) {
-//       toast.error("Помилка оновлення!", toastOptions);
-//       loading.value = false;
-//     }
-//   }
-// };
+const handleUpdateUser = async () => {
+  loading.value = true
+  await useUpdateUser({
+    first_name: firstName.value,
+    last_name: lastName.value,
+    email: email.value,
+    tel: tel.value,
+  });
+  loading.value = false
+};
 </script>
 
 <style lang="scss">
