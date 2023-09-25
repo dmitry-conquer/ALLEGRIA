@@ -4,33 +4,36 @@
     <div class="container">
       <h2 class="text-center text-2xl font-bold uppercase text-indigo-500">1. SUPABASE SDK ONLY</h2>
       <div>
-        <ul>
+        <ul class="flex flex-wrap gap-8">
           <li
             v-for="p in products"
             :key="p.id">
-            {{ p.name }}
+            <p>{{ p.name }}</p>
+            <img :src="p.image[0]" class="w-[100px] h-[130px]" alt="">
           </li>
         </ul>
       </div>
       <hr />
       <h2 class="text-center text-2xl font-bold uppercase text-indigo-500">1. useFetch in components</h2>
       <div>
-        <ul>
+        <ul class="flex flex-wrap gap-8">
           <li
             v-for="p in products2"
             :key="p.id">
-            {{ p.name }}
+            <p>{{ p.name }}</p>
+            <img :src="p.image[0]" class="w-[100px] h-[130px]" alt="">
           </li>
         </ul>
       </div>
       <hr />
       <h2 class="text-center text-2xl font-bold uppercase text-indigo-500">1. useFetch in components</h2>
       <div>
-        <ul>
+        <ul class="flex flex-wrap gap-8">
           <li
             v-for="p in products3"
             :key="p.id">
-            {{ p.name }}
+            <p>{{ p.name }}</p>
+            <img :src="p.image[0]" class="w-[100px] h-[130px]" alt="">
           </li>
         </ul>
       </div>
