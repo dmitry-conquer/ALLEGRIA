@@ -57,5 +57,8 @@ const { data: products3 } = await useLazyAsyncData(
     const { data } = await client.from("products").select("*");
     return data;
   },
+  {
+    server: false,
+  },
 );
 </script>
