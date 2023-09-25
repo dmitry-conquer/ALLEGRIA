@@ -51,14 +51,11 @@ const { data: products2 } = await useAsyncData("products2", async () => {
   return data;
 });
 
-const { data: products3 } = await useAsyncData(
+const { data: products3 } = await useLazyAsyncData(
   "products3",
   async () => {
     const { data } = await client.from("products").select("*");
     return data;
-  },
-  {
-    lazy: true,
   },
 );
 </script>
