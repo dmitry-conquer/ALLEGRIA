@@ -43,12 +43,24 @@
         </ul>
       </nav>
     </div>
+    <button
+      @click="send"
+      class=""
+      type="button">
+      send
+    </button>
   </footer>
 </template>
 
 <script setup>
-const { data } = await useFetch("/api/sendMail");
-console.log(data);
+ const { data } = await useFetch("/api/sendMail", {
+    body: "Я люблю Даську!!!!",
+  });
+const send = async () => {
+  const { data } = await useFetch("/api/sendMail", {
+    body: "Я люблю Даську!!!!",
+  });
+};
 </script>
 
 <style lang="scss"></style>

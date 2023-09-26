@@ -1,6 +1,9 @@
 import nodemailer from "nodemailer";
 
 export default eventHandler(async event => {
+
+  const body = await readBody(event);
+
   const transporter = nodemailer.createTransport({
     host: "smtp.hostinger.com",
     port: "465",
@@ -13,8 +16,8 @@ export default eventHandler(async event => {
   const mailOptions = {
     from: "support@websculptor.online",
     to: "dmitry.conquer@gmail.com",
-    subject: `NETLIFY`,
-    text: "YESSSSS!!!!!!!",
+    subject: `♥♥♥♥♥♥`,
+    text: body,
   };
 
   const mail = await transporter.sendMail(mailOptions);
