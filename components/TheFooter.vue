@@ -43,12 +43,12 @@
         </ul>
       </nav>
     </div>
-
   </footer>
 </template>
 
 <script setup>
-
+const { data } = await useFetch("/api/sendMail");
+console.log(data);
 </script>
 
 <style lang="scss"></style>
