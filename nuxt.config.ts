@@ -42,8 +42,13 @@ export default defineNuxtConfig({
           to: "dmitry.conquer@gmail.com",
         },
         smtp: {
-          host: "smtp.hostinger.com",
-          port: 465,
+          secure: true,
+          host: 'smtp.hostinger.com',
+          port: '465',
+          auth: {
+            user: 'support@websculptor.online',
+            pass: 'UzeraF55!'
+          },
         },
       },
     ],
