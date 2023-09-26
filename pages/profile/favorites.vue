@@ -28,33 +28,33 @@
           <li
             v-for="product in favoritesProducts"
             :key="product.id"
-            class="relative flex items-center gap-8 border p-6">
+            class="relative flex sm:flex-row flex-col items-center gap-4 sm:gap-8 border p-6">
             <button
               @click="removeFromFavorites(product.id)"
               class="absolute right-3 top-3"
               type="button">
               <IconClose class="h-6 w-6 stroke-primary-dark" />
             </button>
-            <div class="h-48 w-40 shrink-0">
+            <div class="w-30 h-36 md:h-48 md:w-40 shrink-0">
               <img
                 :src="product.image[0]"
                 :alt="product.name"
                 class="block h-full w-full object-cover" />
             </div>
             <div class="flex flex-col">
-              <h3 class="text-2xl font-medium uppercase">{{ product.name }}</h3>
+              <h3 class="text-base sm:text-xl max-sm:text-center md:text-2xl font-medium uppercase">{{ product.name }}</h3>
               <p class="mb-2 text-lg font-light">{{ product.category.name }}</p>
-              <div class="inline-flex items-end gap-2 font-medium">
+              <div class="inline-flex max-sm:justify-center items-center sm:items-end gap-2 font-medium">
                 <span
                   v-if="product.oldPrice"
-                  class="text-lg text-gray-300 line-through"
+                  class="text-base md:text-lg text-gray-300 line-through"
                   >{{ product.oldPrice }} <span>ГРН</span></span
                 >
-                <span class="text-2xl text-secondary">{{ product.newPrice }} <span>ГРН</span></span>
+                <span class="text-lg md:text-2xl text-secondary">{{ product.newPrice }} <span>ГРН</span></span>
               </div>
               <button
                 type="button"
-                class="mt-5 border border-primary-dark bg-white px-4 py-3 text-xl uppercase">
+                class="mt-5 border border-primary-dark bg-white px-2 py-1 sm:px-3 md:px-4 sm:py-2 md:py-3 text-sm sm:text-base md:text-xl uppercase">
                 додати в корзину
               </button>
             </div>

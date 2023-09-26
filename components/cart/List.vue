@@ -1,5 +1,5 @@
 <template>
-  <div class="w-2/3 p-7">
+  <div class="w-full md:w-2/3 p-0 md:p-7">
 
     <div>
       <ul class="space-y-8">

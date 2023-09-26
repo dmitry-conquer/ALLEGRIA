@@ -1,27 +1,27 @@
 <template>
-  <li class="relative flex items-center gap-8 border p-6">
+  <li class="relative sm:flex-row flex-col flex items-center gap-8 border p-6">
     <button
       @click="emit('remove-item')"
       class="absolute right-3 top-3"
       type="button">
       <IconClose class="h-6 w-6 stroke-primary-dark" />
     </button>
-    <div class="h-48 w-40 shrink-0">
+    <div class="h-36 w-30 lg:h-48 lg:w-40 shrink-0">
       <img
         :src="product.image[0]"
         :alt="product.name"
         class="block h-full w-full object-cover" />
     </div>
     <div class="flex flex-col">
-      <h3 class="text-2xl font-medium uppercase">{{ product.name }}</h3>
+      <h3 class="text-lg lg:text-2xl font-medium uppercase">{{ product.name }}</h3>
       <p class="mb-2 text-lg font-light">{{ product.category.name }}</p>
       <div class="inline-flex items-end gap-2 font-medium">
         <span
           v-if="product.oldPrice"
-          class="text-lg text-gray-300 line-through"
+          class="text-base lg:text-lg text-gray-300 line-through"
           >{{ product.oldPrice }} <span>ГРН</span></span
         >
-        <span class="text-2xl text-secondary">{{ product.newPrice }} <span>ГРН</span></span>
+        <span class="text-base lg:text-2xl text-secondary">{{ product.newPrice }} <span>ГРН</span></span>
       </div>
     </div>
   </li>

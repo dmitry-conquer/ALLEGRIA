@@ -1,11 +1,11 @@
 <template>
   <div>
-    <SectionHero class="mb-28" />
-    <SectionNewarrival class="mb-28" />
+    <SectionHero class="mb-14 md:mb-28" />
+    <SectionNewarrival class="mb-14 md:mb-28" />
     <SectionSlider
-      class="mb-28"
+      class="mb-14 md:mb-28"
       title="популярне" />
-    <SectionAbout class="mb-28" />
+    <SectionAbout class="mb-14 md:mb-28" />
   </div>
 </template>
 

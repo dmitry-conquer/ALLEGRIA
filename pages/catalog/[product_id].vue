@@ -1,24 +1,24 @@
 <template>
   <div class="py-24">
-    <div class="mx-auto max-w-5xl">
-      <div class="mb-32 flex gap-12">
-        <div class="flex w-full gap-2">
-          <div class="space-y-2">
+    <div class="mx-auto max-w-5xl px-4">
+      <div class="mb-32 flex md:flex-row flex-col gap-12">
+        <div class="flex sm:flex-row flex-col-reverse w-full gap-2">
+          <div class="flex sm:flex-col flex-row gap-2 overflow-auto">
             <img
               v-for="(img, i) in product.image"
               @click="selectedImage = img"
               :key="i"
               :src="img"
               :alt="product.name"
-              class="h-28 w-32 cursor-pointer object-cover" />
+              class="h-28 w-32 max-sm:grow cursor-pointer object-cover" />
           </div>
-          <div class="relative max-h-[600px] grow">
+          <div class="relative  overflow-hidden grow">
             <ClientOnly>
               <VueMagnifier
                 mg-shape="square"
                 :src="selectedImage"
                 :alt="product.name"
-                class="block h-full w-full object-cover" />
+                class="block max-h-[500px] w-full object-cover" />
             </ClientOnly>
             <button
               @click="handleToFavorites"
@@ -81,7 +81,6 @@ const isFavorite = computed(() => {
 if (user.value) {
   const { data } = await client.from("users").select("favorites").eq("user_id", user.value.id).single();
   favoritesList.value = data.favorites;
-  console.log("logined");
 }
 
 const handleToFavorites = () => {

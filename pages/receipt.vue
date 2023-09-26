@@ -58,7 +58,6 @@ const { data: receipt } = await client
   .single();
 
 const { data: products } = await client.from("products").select("*, category(name)").in("id", receipt.products);
-console.log(receipt);
 
 const receiptInfo = [
   {

@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="px-4">
     <div
       v-if="isEmptyList"
       class="flex min-h-screen flex-col items-center justify-center">
-      <h1 class="text-center text-4xl uppercase ">Кошик порожній</h1>
+      <h1 class="text-center text-4xl uppercase">Кошик порожній</h1>
       <img src="/empty-cart.svg" alt="Кошик порожній" class="my-8">
       <p class="text-base md:text-lg max-w-md text-center text-primary-dark/80">Додайте щось, щоб зекономити час та зробити шопінг ще більш приємним.</p>
       <div class="mt-8 flex justify-center">
@@ -17,12 +17,12 @@
     </div>
     <div
       v-else
-      class="py-32">
-      <div class="border-b pb-16">
-        <h1 class="text-center font-cormorant text-4xl uppercase">КОШИК</h1>
+      class="py-24 md:py-32">
+      <div class="border-b pb-4 md:pb-16">
+        <h1 class="py-2 sm:py-6 text-center text-2xl md:text-4xl font-medium uppercase">КОШИК</h1>
       </div>
       <div>
-        <div class="mx-auto flex max-w-5xl items-start">
+        <div class="mx-auto flex-col-reverse max-md:gap-10 md:flex-row flex max-w-5xl items-start">
           <CartContacts />
           <CartList />
         </div>

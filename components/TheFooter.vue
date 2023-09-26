@@ -1,7 +1,7 @@
 <template>
-  <footer class="border-y">
-    <div class="mx-auto flex max-w-3xl flex-col items-center py-20">
-      <h2 class="mb-8 text-center font-cormorant text-5xl">Зв'язатися з нами</h2>
+  <footer class="border-y gap-4">
+    <div class="mx-auto flex max-w-3xl  flex-col items-center py-12 md:py-20">
+      <h2 class="mb-8 text-center font-cormorant text-4xl md:text-5xl">Зв'язатися з нами</h2>
       <form
         @submit.prevent="sendForm"
         class="flex items-center gap-2">
@@ -18,25 +18,25 @@
         </button>
       </form>
       <nav class="mt-12">
-        <ul class="flex justify-center gap-8">
+        <ul class="flex flex-wrap justify-center gap-3 sm:gap-8">
           <li>
             <NuxtLink
               to="/"
-              class="text-lg text-gray-400 transition-colors hover:text-secondary">
+              class="text-base md:text-lg text-gray-400 transition-colors hover:text-secondary">
               Про нас
             </NuxtLink>
           </li>
           <li>
             <NuxtLink
               to="/"
-              class="text-lg text-gray-400 transition-colors hover:text-secondary">
+              class="text-base md:text-lg text-gray-400 transition-colors hover:text-secondary">
               Популярні питання
             </NuxtLink>
           </li>
           <li>
             <NuxtLink
               to="/"
-              class="text-lg text-gray-400 transition-colors hover:text-secondary">
+              class="text-base md:text-lg text-gray-400 transition-colors hover:text-secondary">
               Бренди
             </NuxtLink>
           </li>
@@ -46,6 +46,14 @@
   </footer>
 </template>
 
-<script setup></script>
+<script setup>
+const mail = useMail()
+
+mail.send({
+  from: 'John Doe',
+  subject: 'Incredible',
+  text: 'This is an incredible test message',
+})
+</script>
 
 <style lang="scss"></style>

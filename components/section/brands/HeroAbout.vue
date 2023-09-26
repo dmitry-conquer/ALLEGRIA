@@ -1,6 +1,9 @@
 <template>
-  <div class="container">
-    <div class="mb-10 flex items-center gap-20">
+  <div class="container ">
+    <div class="flex md:flex-row flex-col items-center gap-20 mb-10">
+        <img
+          src="/brand/img1.jpg"
+          alt="American vintage" class="max-sm:w-full max-md:w-1/2 max-lg:w-1/3"/>
       <div>
         <h2 class="mb-7 text-2xl font-bold uppercase">American vintage</h2>
         <p class="max-w-4xl text-primary-dark/80">
@@ -13,15 +16,10 @@
           марки має дуже стильний вигляд, залишаючи без розуму багатьох покупців.
         </p>
       </div>
-      <img
-        src="/brand/img3.jpg"
-        alt="American vintage" />
     </div>
-    <div class="container flex justify-start">
-      <img
-        src="/brand/img4.jpg"
-        alt="American vintage"
-        class="ml-[30%]" />
+    <div class="container flex justify-end">
+      <img src="/brand/img2.jpg" alt="American vintage" class="lg:mr-[30%]">
     </div>
   </div>
 </template>
+

@@ -11,8 +11,8 @@
       class="absolute z-[-1] h-full w-full object-cover"></video>
     <div class="relative z-10 text-center">
       <p class="mb-2 font-cormorant text-xl uppercase text-white">БРЕНД</p>
-      <h2 class="mb-4 font-cormorant text-6xl uppercase text-white">american vintage</h2>
-      <p class="max-w-xl text-center text-lg text-white">
+      <h2 class="mb-4 font-cormorant text-5xl sm:text-6xl uppercase text-white">american vintage</h2>
+      <p class="max-w-xl text-center text-lg text-white px-4">
         American Vintage – модна торгова марка з виробництва трикотажного одягу для жінок.
       </p>
     </div>

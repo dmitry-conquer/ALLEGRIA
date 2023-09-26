@@ -1,22 +1,25 @@
 <template>
-  <nav class="inline-flex justify-start border-r pr-8">
-    <ul class="">
+  <nav class="inline-flex justify-start border-r pr-4 md:pr-8">
+    <ul>
       <li
         v-for="(item, i) in menu"
-        :key="i"
-        class="flex items-center gap-3 py-2 hover:text-secondary">
-        <component
-          :is="item.icon"
-          class="h-6 w-6" />
-        <NuxtLink :to="item.link">{{ item.text }}</NuxtLink>
+        :key="i">
+        <NuxtLink
+          :to="item.link"
+          class="flex items-center gap-3 py-2 hover:text-secondary">
+          <component
+            :is="item.icon"
+            class="h-6 w-6" />
+          <span class="hidden md:block">{{ item.text }}</span>
+        </NuxtLink>
       </li>
-      <li class="flex items-center gap-3 py-2 hover:text-secondary">
-        <IconExit class="h-6 w-6" />
+      <li>
         <button
           @click="signout"
-          class=""
+          class="flex items-center gap-3 py-2 hover:text-secondary"
           type="button">
-          Вихід
+          <IconExit class="h-6 w-6" />
+          <span class="hidden md:block">Вихід</span>
         </button>
       </li>
     </ul>

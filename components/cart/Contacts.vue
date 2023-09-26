@@ -1,6 +1,5 @@
 <template>
-  <div class="w-1/2 border-r p-7">
-    <!-- contacts info -->
+  <div class="mx-auto w-full md:w-1/2 md:border-r p-0 md:p-7">
     <div class="mb-4">
       <div>
         <label
@@ -63,7 +62,6 @@
     <CartDelivery :deliveryData="profile.delivery" />
 
     <!-- payment -->
-    {{ paymentMethod }}
     <div>
       <h2 class="mb-2 text-lg font-medium">Спосіб оплати</h2>
       <div class="toggle-checkbox">

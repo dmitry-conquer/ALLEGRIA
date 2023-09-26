@@ -1,20 +1,16 @@
 <template>
   <div class="container py-24">
-    <div>
-      <!-- breadcrumbs -->
-    </div>
-
     <div class="flex">
-      <TheSidebar />
-      <div class="grow px-8">
+      <TheSidebar class="hidden lg:block" />
+      <div class="grow lg:px-8">
         <CatalogMainTitle :category="category" />
         <Filter class="mb-8" />
         <ClientOnly>
-          <CatalogSort
-            class="mb-8"
-            :quantity="quantity" />
+            <CatalogSort
+              class="mb-8"
+              :quantity="quantity" />
         </ClientOnly>
-        <div class="relative grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
+        <div class="relative grid grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))] gap-8 md:grid-cols-2 xl:grid-cols-3">
           <CatalogItem
             v-for="product in sortedProducts"
             :key="product.id"
@@ -60,8 +56,7 @@ const total = computed(() => {
 });
 
 const { data: products, pending } = await useFetch("/api/products/", {
-  // lazy: true,
-  server: false,
+  lazy: true,
   query: {
     category,
     size,

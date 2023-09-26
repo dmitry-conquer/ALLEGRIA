@@ -1,9 +1,8 @@
 <template>
-  <div class="mx-auto max-w-4xl py-32">
-    <h1 class="mb-8 text-center text-3xl font-medium uppercase">Створити профіль</h1>
-    {{ loading }}
+  <div class="mx-auto max-w-4xl px-4 py-24 sm:py-32">
+    <h1 class="mb-8 text-center text-2xl sm:text-3xl font-medium uppercase">Створити профіль</h1>
     <form @submit.prevent="createUser">
-      <div class="grid grid-cols-2 gap-6">
+      <div class="grid grod-cols-1 sm:grid-cols-2 gap-6">
         <div>
           <label
             for="reg-first-name"
@@ -91,12 +90,12 @@
           id="check-policy"
           v-model="policy"
           class="h-5 w-5 accent-secondary" />
-        <label for="check-policy"
-          >Я согласен с
+        <label class="text-sm sm:text-base" for="check-policy"
+          >Я згоден з
           <a
             href=""
             class="text-secondary hover:underline"
-            >политикой конфиденциальности</a
+            >політикою конфіденційності</a
           ></label
         >
       </div>
@@ -126,7 +125,7 @@
             v-if="isOpen"
             :isOpen="isOpen"
             @close-modal="isOpen = false">
-            <HeaderLoginForm @close-modal="isOpen = false" />
+            <LoginForm @close-modal="isOpen = false" />
           </BaseModal>
         </Transition>
       </div>

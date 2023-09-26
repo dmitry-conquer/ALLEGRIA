@@ -1,7 +1,7 @@
 <template>
-  <div class="w-80 shrink-0 space-y-8">
+  <div class="w-full sm:w-80 shrink-0 space-y-8">
     <div>
-      <h1 class="text-3xl font-medium uppercase">{{ product.name }}</h1>
+      <h1 class="text-2xl md:text-3xl font-medium uppercase">{{ product.name }}</h1>
       <p class="mb-2 text-lg font-light">{{ product.category.name }}</p>
       <div class="inline-flex items-end gap-2 font-medium">
         <span
@@ -40,7 +40,6 @@
         <SingleButtonBuy :product="product" />
     
       </div>
-      <div id="liqpay_checkout"></div>
       <div class="mb-4 flex justify-between gap-4 text-base">
         <SinglePayment button-text="Оплата та доставка" />
         <SingleReturn button-text="Повернення та обмін" />

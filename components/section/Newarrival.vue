@@ -1,12 +1,12 @@
 <template>
-  <div class="flex bg-soft-dark">
-    <div class="f-ull relative flex basis-2/5 flex-col justify-center pl-12">
+  <div class="flex md:flex-row flex-col bg-soft-dark">
+    <div class="f-ull relative flex basis-2/5 flex-col justify-center p-4 lg:pl-12">
       <img
         src="/new_arrival_1.jpg"
         alt="new arrival"
         class="absolute left-0 top-0 h-full w-full object-cover" />
       <div class="relative z-10 text-white max-w-lg">
-        <h2 class="font-cormorant text-8xl uppercase mb-4">
+        <h2 class="font-cormorant text-6xl xl:text-7xl 2xl:text-8xl uppercase mb-4">
           New <br />
           Arrival
         </h2>
@@ -18,8 +18,8 @@
         <NuxtLink to="/catalog" class="hover:text-secondary transition-colors">ПЕРЕГЛЯНУТИ КОЛЕЦІЮ</NuxtLink>
       </div>
     </div>
-    <div class="flex grow place-content-center py-12">
-      <div class="bg-white p-28">
+    <div class="flex grow place-content-center p-2 sm:p-12">
+      <div class="bg-white p-6 md:p-16 xl:p-24 2xl:p-28">
         <div class="relative">
           <img
             src="/new_arrival_2.jpg"

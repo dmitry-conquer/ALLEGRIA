@@ -27,5 +27,15 @@ export const useFormValidator = credentials => {
     errorMessage = "Необхідно погодитися з політикою конфіденційності";
     return { errors, errorMessage };
   }
+  if (credentials.password && credentials.password.length < 6) {
+    errors++;
+    errorMessage = "Пароль повинен містити не менше 6 символів!";
+    return { errors, errorMessage };
+  }
+  if (credentials.password && credentials.repeatPassword && credentials.password !== credentials.repeatPassword) {
+    errors++;
+    errorMessage = "Паролі не співпадають!";
+    return { errors, errorMessage };
+  }
   return { errors, errorMessage };
 };

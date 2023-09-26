@@ -12,7 +12,7 @@
         :key="t.id"
         class="py-3">
         <div
-          @click="showItems"
+          @click="handleSpoiler"
           role="button"
           class="cursor-poiner flex items-center justify-between">
           <h3 class="pointer-events-none font-medium uppercase">
@@ -55,11 +55,8 @@ const { data: types } = await client.from("clothes_type").select("*");
   dropdown
 */
 
-const showItems = e => {
-  const target = e.target;
-  const nextSibling = target.nextElementSibling;
-  target.classList.toggle("spoiler-is-open");
-  nextSibling.style.maxHeight = nextSibling.style.maxHeight ? null : `${nextSibling.scrollHeight}px`;
+const handleSpoiler = e => {
+  useSpoiler(e);
 };
 </script>
 

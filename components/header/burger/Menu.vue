@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute right-0 top-full min-h-screen w-full max-w-sm bg-white">
+  <div  class="absolute right-0 top-full min-h-screen w-full max-w-sm bg-white">
     <TransitionGroup
       tag="ul"
       name="menu"
@@ -13,6 +13,7 @@
         <NuxtLink @click="emit('close-modal')" :to="item.link" class="hover:text-secondary transition-colors">{{ item.name }}</NuxtLink>
       </li>
     </TransitionGroup>
+    <div id="alt-actions"></div>
   </div>
 </template>
 

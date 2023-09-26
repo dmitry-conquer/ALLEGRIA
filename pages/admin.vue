@@ -85,7 +85,6 @@ onChange(files => {
 
     console.log(error);
     const { data } = client.storage.from("products_images").getPublicUrl(file.name);
-    console.log(data);
     imagesUrl.value.push(data.publicUrl);
   });
 });

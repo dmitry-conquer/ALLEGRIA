@@ -1,23 +1,23 @@
 <template>
   <div>
     <SectionHeroAbout />
-    <section class="mx-auto max-w-xl py-32">
-      <h2 class="text-center font-cormorant text-2xl">
+    <section class="mx-auto max-w-xl py-16 md:py-32">
+      <h2 class="text-center font-cormorant text-xl sm:text-2xl px-4">
         American Vintage в першу чергу - це якісний трикотаж, витончена краса і безперечний крій.
       </h2>
     </section>
-    <section class="mx-auto flex max-w-7xl items-center justify-between gap-20 pb-10">
+    <section class="mx-auto flex lg:flex-row flex-col max-w-7xl items-center justify-between gap-20 pb-10">
       <h2 class="sr-only">Приклади одягу</h2>
       <img
         src="/about/img1.jpg"
-        alt="American Vintage" />
+        alt="American Vintage"  />
       <img
         src="/about/img2.jpg"
         alt="American Vintage"
-        class="translate-x-16" />
+        class="lg:translate-x-16" />
     </section>
-    <section class="container flex flex-col items-end pb-40 pt-20">
-      <div class="w-5/6">
+    <section class="container flex flex-col items-end pb-10 md:pb-40 pt-10 md:pt-20">
+      <div class="w-full lg:w-5/6">
         <h2 class="mb-7 text-3xl font-bold uppercase">ПРО НАС</h2>
         <div class="mb-20 space-y-3 text-lg text-primary-dark/80">
           <p>
@@ -33,7 +33,7 @@
             безпека одягу та виробництва.
           </p>
         </div>
-        <div class="flex items-center gap-44">
+        <div class="flex lg:flex-row flex-col items-center gap-14 lg:gap-44">
           <img
             src="/about/img3.jpg"
             alt="" />
@@ -43,7 +43,7 @@
         </div>
       </div>
     </section>
-    <section class="bg-inherit bg-soft-light py-24">
+    <section class="bg-inherit bg-soft-light py-16 md:py-24">
       <div class="container">
         <h2 class="text-primary-dark/80 text-lg text-center max-w-2xl mx-auto">Для всіх представлених у бутику брендів важливим пріоритетом є екологічна безпека одягу та виробництва.</h2>
       </div>

@@ -16,8 +16,8 @@
         loading="lazy"
         class="mb-8 transition-transform duration-300 group-hover:-rotate-1 group-hover:scale-[1.01]" />
       <div class="text-center">
-        <h3 class="text-xl font-medium uppercase">{{ product.name }}</h3>
-        <p class="mb-1.5">{{ product.category.name }}</p>
+        <h3 class="text-sm sm:text-base md:text-xl font-medium uppercase">{{ product.name }}</h3>
+        <p class="mb-1.5 text-sm">{{ product.category.name }}</p>
         <div class="inline-flex gap-2 text-sm font-medium">
           <span
             v-if="product.oldPrice"

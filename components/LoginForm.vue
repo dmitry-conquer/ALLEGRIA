@@ -1,9 +1,9 @@
 <template>
-  <div class="p-8">
+  <div class="p-3 sm:p-8">
     <h3 class="text-center font-cormorant text-3xl font-semibold uppercase">ВХІД</h3>
     <form
       @submit.prevent="login"
-      class="min-w-[320px] space-y-6">
+      class="space-y-6">
       <div>
         <label
           for="login-email"

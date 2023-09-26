@@ -29,7 +29,25 @@ export default defineNuxtConfig({
   },
   css: ["~/assets/styles/style.scss"],
 
-  modules: ["nuxt-swiper", "@nuxtjs/supabase", "@pinia/nuxt", "@pinia-plugin-persistedstate/nuxt"],
+  modules: [
+    "nuxt-swiper",
+    "@nuxtjs/supabase",
+    "@pinia/nuxt",
+    "@pinia-plugin-persistedstate/nuxt",
+    "nuxt-delay-hydration",
+    [
+      "nuxt-mail",
+      {
+        message: {
+          to: "dmitry.conquer@gmail.com",
+        },
+        smtp: {
+          host: "smtp.hostinger.com",
+          port: 465,
+        },
+      },
+    ],
+  ],
   pinia: {
     autoImports: ["defineStore"],
   },

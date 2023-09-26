@@ -1,7 +1,7 @@
 <template>
-  <div class="fixed inset-0 z-50 grid h-full w-full place-content-center bg-black/50">
+  <div class="fixed inset-0 z-50 grid h-full w-full place-content-center bg-black/50 px-4">
     <div
-      class="relative min-w-[600px] max-w-2xl rounded-md bg-white p-6"
+      class="relative w-full max-w-2xl rounded-md bg-white p-6 overflow-auto"
       ref="trigger">
       <button
         @click="emit('close-modal')"

@@ -1,10 +1,10 @@
 <template>
   <div
-    class="relative"
+    class="relative w-1/2 sm:w-60"
     ref="trigger">
     <button
       @click="isOpen = !isOpen"
-      class="block h-full w-60 border px-4 py-2"
+      class="block h-full w-full  border px-4 py-2"
       type="button">
       {{ text }}
     </button>
