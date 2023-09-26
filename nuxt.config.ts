@@ -35,23 +35,6 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@pinia-plugin-persistedstate/nuxt",
     "nuxt-delay-hydration",
-    [
-      "nuxt-mail",
-      {
-        message: {
-          to: "dmitry.conquer@gmail.com",
-        },
-        smtp: {
-          secure: true,
-          host: 'smtp.hostinger.com',
-          port: '465',
-          auth: {
-            user: 'support@websculptor.online',
-            pass: 'UzeraF55!'
-          },
-        },
-      },
-    ],
   ],
   pinia: {
     autoImports: ["defineStore"],

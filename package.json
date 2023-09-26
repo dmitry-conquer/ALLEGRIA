@@ -33,7 +33,6 @@
     "jssha": "^3.3.1",
     "liqpay-sdk-tool": "^1.0.1",
     "maska": "^2.1.10",
-    "nuxt-mail": "^4.0.1",
     "nuxt-swiper": "^1.2.2",
     "pinia": "^2.1.6"
   },

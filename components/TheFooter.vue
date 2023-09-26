@@ -43,39 +43,12 @@
         </ul>
       </nav>
     </div>
-    <button
-      @click="send1"
-      class=""
-      type="button">
-      SEND
-    </button>
-    <button
-      @click="send2"
-      class=""
-      type="button">
-      SEND
-    </button>
+
   </footer>
 </template>
 
 <script setup>
-const mail = useMail();
-const { $mail } = useNuxtApp();
 
-const send1 = () => {
-  mail.send({
-    from: "John Doe",
-    subject: "Incredible",
-    text: "This is an incredible test message",
-  });
-};
-const send2 = () => {
-  $mail.send({
-    from: "John Doe",
-    subject: "Incredible",
-    text: "This is an incredible test message",
-  });
-};
 </script>
 
 <style lang="scss"></style>
