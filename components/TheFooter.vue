@@ -43,27 +43,6 @@
         </ul>
       </nav>
     </div>
-    <button
-      @click="send"
-      class=""
-      type="button">
-      send
-    </button>
   </footer>
 </template>
 
-<script setup>
-const send = async () => {
-  console.log('sdfsfsdf');
-  const { data, error } = await useFetch("/api/sendMail", {
-    method: "post",
-    body: {
-      name: 'DDDDDDDDDDDDd'
-    }
-  });
-  console.log(data.value);
-  console.log(error.value);
-};
-</script>
-
-<style lang="scss"></style>

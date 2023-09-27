@@ -76,6 +76,7 @@ const { files, open, reset, onChange } = useFileDialog();
 open({
   multiple: true,
 });
+// переробити на for...of 
 onChange(files => {
   Object.values(files).forEach(async file => {
     const { error } = await client.storage.from("products_images").upload(file.name, file, {

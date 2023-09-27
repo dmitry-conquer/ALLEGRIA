@@ -82,6 +82,15 @@
           ></label
         >
       </div>
+      <button
+        @click="open"
+        class=""
+        type="button">
+        CHOOSE FILES
+      </button>
+      <div v-for="f in files">
+        {{ f }}
+      </div>
       <div class="mt-8 flex flex-col items-center justify-center gap-4">
         <div>
           <SpinnerLoader
@@ -100,22 +109,48 @@
 </template>
 
 <script setup>
+import { useFileDialog } from "@vueuse/core";
 
-const firstName = ref("")
-const lastName = ref("")
-const tel = ref("")
-const email = ref("")
+const firstName = ref("");
+const lastName = ref("");
+const tel = ref("");
+const email = ref("");
+const policy = ref(false);
+const loading = ref(false);
+
+const { files, open, reset, onChange } = useFileDialog();
+
+onChange(files => {
+  console.log(files[0]);
+});
+
+const { toast, toastOptions } = useToast();
 
 const sendForm = async () => {
-  const { data } = await useFetch("/api/sendMail", {
-   method: 'POST',
-    body: {
-      firstName: firstName.value,
-      lastName: lastName.value,
-      tel: tel.value,
-      email: email.value,
-    },
+  loading.value = true;
+  const formData = new FormData();
+  Object.values(files.value).forEach(file => {
+    formData.append("file", file);
   });
-  console.log(data);
+  formData.append("text", "RANDOM TEXT");
+  formData.append("tefsdfxt", "sfsaf");
+  formData.append("222", "112312");
+  formData.append("svsf sf sf", " sfs fs fs saf s fs");
+  const { data, error } = await useFetch("/api/sendMail", {
+    method: "POST",
+    body: formData,
+    //  firstName: firstName.value,
+    // lastName: lastName.value,
+    // tel: tel.value,
+    // email: email.value,
+    // file: files.value[0],
+  });
+  if (data.value && data.value.every(mail => mail.hasOwnProperty("messageId"))) {
+    toast.success("Лист надіслано!", toastOptions);
+    loading.value = false;
+  } else if (error.value) {
+    toast.error("Помилка!", toastOptions);
+    loading.value = false;
+  }
 };
 </script>
