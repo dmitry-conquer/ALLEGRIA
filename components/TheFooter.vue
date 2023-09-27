@@ -53,13 +53,16 @@
 </template>
 
 <script setup>
- const { data } = await useFetch("/api/sendMail", {
-    body: "Я люблю Даську!!!!",
-  });
 const send = async () => {
-  const { data } = await useFetch("/api/sendMail", {
-    body: "Я люблю Даську!!!!",
+  console.log('sdfsfsdf');
+  const { data, error } = await useFetch("/api/sendMail", {
+    method: "post",
+    body: {
+      name: 'DDDDDDDDDDDDd'
+    }
   });
+  console.log(data.value);
+  console.log(error.value);
 };
 </script>
 

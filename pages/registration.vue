@@ -2,7 +2,7 @@
   <div class="mx-auto max-w-4xl px-4 py-24 sm:py-32">
     <h1 class="mb-8 text-center text-2xl sm:text-3xl font-medium uppercase">Створити профіль</h1>
     <form @submit.prevent="createUser">
-      <div class="grid grod-cols-1 sm:grid-cols-2 gap-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
           <label
             for="reg-first-name"
