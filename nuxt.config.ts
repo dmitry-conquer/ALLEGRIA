@@ -40,8 +40,7 @@ export default defineNuxtConfig({
     "@nuxtjs/supabase",
     "@pinia/nuxt",
     "@pinia-plugin-persistedstate/nuxt",
-    "nuxt-delay-hydration",
-    "nuxt-simple-sitemap"
+    "nuxt-delay-hydration"
   ],
   pinia: {
     autoImports: ["defineStore"],
