@@ -28,7 +28,10 @@ export default defineNuxtConfig({
   },
   spaLoadingTemplate: false,
   routeRules: {
-    // "/catalog": { ssr: false },
+    "/profile": { ssr: false },
+    "/cart": { ssr: false },
+    "/policy": { ssr: false },
+    "/receipt": { ssr: false },
   },
   css: ["~/assets/styles/style.scss"],
 
@@ -38,6 +41,7 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@pinia-plugin-persistedstate/nuxt",
     "nuxt-delay-hydration",
+    "nuxt-simple-sitemap"
   ],
   pinia: {
     autoImports: ["defineStore"],

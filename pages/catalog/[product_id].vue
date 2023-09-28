@@ -1,18 +1,18 @@
 <template>
   <div class="py-24">
     <div class="mx-auto max-w-5xl px-4">
-      <div class="mb-32 flex md:flex-row flex-col gap-12">
-        <div class="flex sm:flex-row flex-col-reverse w-full gap-2">
-          <div class="flex sm:flex-col flex-row gap-2 overflow-auto">
+      <div class="mb-32 flex flex-col gap-12 md:flex-row">
+        <div class="flex w-full flex-col-reverse gap-2 sm:flex-row">
+          <div class="flex flex-row gap-2 overflow-auto sm:flex-col">
             <img
               v-for="(img, i) in product.image"
               @click="selectedImage = img"
               :key="i"
               :src="img"
               :alt="product.name"
-              class="h-28 w-32 max-sm:grow cursor-pointer object-cover" />
+              class="h-28 w-32 cursor-pointer object-cover max-sm:grow" />
           </div>
-          <div class="relative  overflow-hidden grow">
+          <div class="relative grow overflow-hidden">
             <ClientOnly>
               <VueMagnifier
                 mg-shape="square"
@@ -52,17 +52,15 @@ definePageMeta({
     mode: "out-in",
   },
 });
+
 import VueMagnifier from "@websitebeaver/vue-magnifier";
 import "@websitebeaver/vue-magnifier/styles.css";
-
-
 
 const route = useRoute();
 const client = useSupabaseClient();
 const user = useSupabaseUser();
 const { toast, toastOptions } = useToast();
 const isOpen = ref(false);
-
 
 const { data: product } = await useFetch(`/api/${route.params.product_id}`, {
   transform: response => {
@@ -112,12 +110,34 @@ const toFavorites = async () => {
   }
 };
 
+useSeoMeta({
+  title: `${product.value.name} | Allegria`,
+  keywords: "Allegria, магазин, жіночий одяг, брендовий одяг, стиль, одежа жіноча, syjxbq jlzu",
+  description:
+    "Allegria - ваш унікальний інтернет-магазин брендового одягу. Відкрийте для себе найсвіжіші та найстильніші колекції від улюблених дизайнерів і зробіть свій гардероб ще більш елегантним та стильним.",
+  ogUrl: `https://allegria-store.netlify.app`,
+  ogType: "website",
+  ogTitle: `${product.value.name} | Allegria`,
+  ogImage: "https://example.com/image.png", //1200x630
+  ogLocale: "uk_UA",
+  ogSiteName: "Allegria", // Назва вашого сайту
+  ogDescription:
+    "Allegria - ваш унікальний інтернет-магазин брендового одягу. Відкрийте для себе найсвіжіші та найстильніші колекції від улюблених дизайнерів і зробіть свій гардероб ще більш елегантним та стильним.",
+  twitterCard: "summary_large_image",
+  twitterDescription:
+    "Allegria - ваш унікальний інтернет-магазин брендового одягу. Відкрийте для себе найсвіжіші та найстильніші колекції від улюблених дизайнерів і зробіть свій гардероб ще більш елегантним та стильним.",
+  twitterImage: "https://example.com/image.png", //1200x630
+  twitterTitle: `${product.value.name} | Allegria`,
+});
+
 useHead({
+  link: [{ rel: 'canonical', href: 'https://allegria-store.netlify.app' }],
   script: [
     {
       src: "https://static.liqpay.ua/libjs/checkout.js",
       defer: true,
     },
   ],
+  htmlAttrs: { lang: "uk" },
 });
 </script>

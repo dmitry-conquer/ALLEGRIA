@@ -42,6 +42,18 @@ definePageMeta({
     mode: "out-in",
   },
 });
+
+useSeoMeta({
+  title: "Каталог | Allegria",
+  keywords: "Allegria, магазин, жіночий одяг, брендовий одяг, стиль",
+  ogTitle: "Allegria | Магазин жіночого одягу",
+  description:
+    "Allegria - ваш унікальний інтернет-магазин брендового одягу. Відкрийте для себе найсвіжіші та найстильніші колекції від улюблених дизайнерів і зробіть свій гардероб ще більш елегантним та стильним.",
+  ogDescription: "Allegria - ваш унікальний інтернет-магазин брендового одягу. Відкрийте для себе найсвіжіші та найстильніші колекції від улюблених дизайнерів і зробіть свій гардероб ще більш елегантним та стильним.",
+  ogImage: "https://example.com/image.png",
+  twitterCard: "summary_large_image",
+});
+
 const route = useRoute();
 const client = useSupabaseClient();
 
