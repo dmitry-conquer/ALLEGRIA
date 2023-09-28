@@ -57,7 +57,8 @@ export default defineNuxtConfig({
   },
 
   image: {
-    domains: ['mgcrscqcxnwbrqseoapz.supabase.co']
+    domains: ['mgcrscqcxnwbrqseoapz.supabase.co'],
+    provider: "ipx"
   },
 
   supabase: {
