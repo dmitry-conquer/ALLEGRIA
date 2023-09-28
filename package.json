@@ -18,6 +18,7 @@
     "nodemailer": "^6.9.5",
     "nuxt": "^3.7.3",
     "nuxt-delay-hydration": "^1.2.2",
+    "nuxt-simple-robots": "^3.1.5",
     "nuxt-simple-sitemap": "^3.3.5",
     "postcss": "^8.4.29",
     "prettier": "^3.0.3",

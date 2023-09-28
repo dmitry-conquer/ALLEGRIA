@@ -24,7 +24,7 @@ export default defineNuxtConfig({
     },
   },
   build: {
-    transpile: ['@fawmi/vue-google-maps']
+    transpile: ["@fawmi/vue-google-maps"],
   },
   spaLoadingTemplate: false,
   routeRules: {
@@ -40,7 +40,9 @@ export default defineNuxtConfig({
     "@nuxtjs/supabase",
     "@pinia/nuxt",
     "@pinia-plugin-persistedstate/nuxt",
-    "nuxt-delay-hydration"
+    "nuxt-delay-hydration",
+    "nuxt-simple-sitemap",
+    "nuxt-simple-robots",
   ],
   pinia: {
     autoImports: ["defineStore"],
