@@ -5,11 +5,8 @@ export default defineNuxtConfig({
       viewport: "width=device-width, initial-scale=1",
       title: "Allegria",
       meta: [
-        { name: "description", content: "Allegria" },
-        { name: "keywords", content: "Allegria, Allegria, Allegria" },
-        // { name: "robots", content: "noindex, nofollow" },
-        // { name: "language", content: "English" },
         { name: "author", content: "Dmitry Conquer" },
+        { name: "google-site-verification", content: "IlJCwkwBMXPIRCewcl-V4DWilVYRSKHuYclNa2S_zeI" },
       ],
     },
     pageTransition: { name: "page", mode: "out-in" },
