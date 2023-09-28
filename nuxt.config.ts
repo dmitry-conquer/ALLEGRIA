@@ -23,6 +23,9 @@ export default defineNuxtConfig({
       LIQPAY_PUBLIC_KEY: process.env.LIQPAY_PUBLIC_KEY,
     },
   },
+  build: {
+    transpile: ['@fawmi/vue-google-maps']
+  },
   spaLoadingTemplate: false,
   routeRules: {
     // "/catalog": { ssr: false },

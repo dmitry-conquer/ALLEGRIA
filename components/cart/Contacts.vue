@@ -120,9 +120,9 @@ const tel = ref(profile.value.tel);
 
 const paymentMethod = ref("online");
 const addressString = ref(
-  `м. ${profile.value.delivery.address}, вул. ${profile.value.delivery.street}, буд. ${profile.value.delivery.house}, кв. ${profile.value.delivery.appart}`,
+  `м. ${profile.value.delivery?.address}, вул. ${profile.value.delivery?.street}, буд. ${profile.value.delivery?.house}, кв. ${profile.value.delivery?.appart}`,
 );
-const deliveryString = ref(`Спосіб доставки: ${profile.value.delivery.deliveryMethod}`);
+const deliveryString = ref(`Спосіб доставки: ${profile.value.delivery?.deliveryMethod}`);
 
 const description = cart.products.map(p => p.name).join(", ");
 const order_id = `${user.value.id}-${Date.now()}`;
@@ -157,7 +157,7 @@ const pay = () => {
       signature: signature.value,
       embedTo: "#liqpay_checkout",
       language: "uk",
-      mode: "embed", // embed || popup
+      mode: "popup", // embed || popup
     }).on("liqpay.callback", async function (data) {
       resultOrder.status = data.status;
       useSaveOrder(resultOrder);

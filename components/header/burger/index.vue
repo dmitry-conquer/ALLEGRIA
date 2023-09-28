@@ -3,7 +3,7 @@
     <HeaderBurgerButton
       @toggle-menu="isOpen = !isOpen"
       :isOpen="isOpen" />
-    <Transition name="menu">
+    <Transition name="menu" class="shadow-xl">
       <HeaderBurgerMenu @close-modal="isOpen = false" v-show="isOpen" :isOpen="isOpen" />
     </Transition>
   </div>

@@ -40,7 +40,6 @@
           </BaseModal>
         </Transition>
       </div>
-      <!-- slider -->
     </div>
     <SectionSlider title="подібні товари" />
   </div>
@@ -56,11 +55,14 @@ definePageMeta({
 import VueMagnifier from "@websitebeaver/vue-magnifier";
 import "@websitebeaver/vue-magnifier/styles.css";
 
+
+
 const route = useRoute();
 const client = useSupabaseClient();
 const user = useSupabaseUser();
 const { toast, toastOptions } = useToast();
 const isOpen = ref(false);
+
 
 const { data: product } = await useFetch(`/api/${route.params.product_id}`, {
   transform: response => {
@@ -109,10 +111,6 @@ const toFavorites = async () => {
     toast.error("Помилка додавання", toastOptions);
   }
 };
-
-/*
-  pay
-*/
 
 useHead({
   script: [

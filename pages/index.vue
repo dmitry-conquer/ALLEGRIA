@@ -5,6 +5,7 @@
     <SectionSlider
       class="mb-14 md:mb-28"
       title="популярне" />
+    <GoogleMap/>
     <SectionAbout class="mb-14 md:mb-28" />
   </div>
 </template>

@@ -5,11 +5,21 @@
     type="button">
     ДОДАТИ В КОРЗИНУ
   </button>
+  <Transition name="fade">
+    <BaseModal
+      v-if="isOpen"
+      :isOpen="isOpen"
+      @close-modal="isOpen = false">
+      <LoginForm @close-modal="isOpen = false" />
+    </BaseModal>
+  </Transition>
 </template>
 
 <script setup>
-import { useCartStore } from '~/stores/cart';
+import { useCartStore } from "~/stores/cart";
 const { toast, toastOptions } = useToast();
+const user = useSupabaseUser();
+const isOpen = ref(false);
 
 const props = defineProps({
   product: {
@@ -22,8 +32,12 @@ const props = defineProps({
 const cart = useCartStore();
 
 const addToCart = () => {
-  cart.products.push(props.product);
-  toast.success("Додано до кошика!", toastOptions);
+  if (user.value) {
+    cart.products.push(props.product);
+    toast.success("Додано до кошика!", toastOptions);
+  } else {
+    isOpen.value = true;
+  }
 };
 </script>
 

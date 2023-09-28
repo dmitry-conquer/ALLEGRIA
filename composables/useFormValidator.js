@@ -17,12 +17,13 @@ export const useFormValidator = credentials => {
     errorMessage = "Некоректний номер телефону";
     return { errors, errorMessage };
   }
-  if (credentials.tel && credentials.repeatPassword !== credentials.password) {
+  if (credentials.repeatPassword && credentials.repeatPassword !== credentials.password) {
     errors++;
     errorMessage = "Паролі не співпадають";
     return { errors, errorMessage };
   }
-  if (credentials.policy && credentials.policy === false) {
+  if (credentials.policy &&  credentials.policy === false) {
+    console.log(credentials.policy);
     errors++;
     errorMessage = "Необхідно погодитися з політикою конфіденційності";
     return { errors, errorMessage };

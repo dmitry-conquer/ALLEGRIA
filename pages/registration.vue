@@ -92,10 +92,10 @@
           class="h-5 w-5 accent-secondary" />
         <label class="text-sm sm:text-base" for="check-policy"
           >Я згоден з
-          <a
-            href=""
+          <NuxtLink
+            to="/policy"
             class="text-secondary hover:underline"
-            >політикою конфіденційності</a
+            >політикою конфіденційності</NuxtLink
           ></label
         >
       </div>

@@ -8,7 +8,7 @@
         <p>Після відправки Ви отримаєте повідомлення на свою електронну адресу.</p>
       </div>
     </div>
-    <form @submit.prevent="sendForm">
+    <form @submit.prevent="handleSendForm">
       <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
         <div>
           <label
@@ -65,6 +65,10 @@
             v-model="email" />
         </div>
       </div>
+      <div class="mt-6 space-y-2">
+        <p>Оберіть дату та час, ми зв'яжимося, коли Вам буде зручно</p>
+        <VueDatePicker v-model="date" locale="uk" cancelText="Закрити" selectText="Обрати"   placeholder="Оберіть дату та час для зв'язку"></VueDatePicker>
+      </div>
       <div class="mt-6 flex items-center gap-3">
         <input
           type="checkbox"
@@ -74,22 +78,13 @@
         <label
           class="text-sm sm:text-base"
           for="check-policy"
-          >Надаю згоду на обробку
-          <a
-            href=""
+          >Я погоджуюся з
+          <NuxtLink
+            to="/policy"
             class="text-secondary hover:underline"
-            >персональних даних</a
+            >політикою конфіденційності</NuxtLink
           ></label
         >
-      </div>
-      <button
-        @click="open"
-        class=""
-        type="button">
-        CHOOSE FILES
-      </button>
-      <div v-for="f in files">
-        {{ f }}
       </div>
       <div class="mt-8 flex flex-col items-center justify-center gap-4">
         <div>
@@ -99,7 +94,7 @@
           <button
             v-else
             type="submit"
-            class="rounded-sm bg-primary-dark px-4 py-3 text-2xl uppercase text-white transition-colors hover:bg-primary-dark/90">
+            class="rounded-sm bg-primary-dark px-4 py-3 text-base sm:text-2xl uppercase text-white transition-colors hover:bg-primary-dark/90">
             НАДІСЛАТИ
           </button>
         </div>
@@ -109,48 +104,26 @@
 </template>
 
 <script setup>
-import { useFileDialog } from "@vueuse/core";
+import VueDatePicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
 
 const firstName = ref("");
 const lastName = ref("");
 const tel = ref("");
 const email = ref("");
 const policy = ref(false);
+const date = ref(null);
 const loading = ref(false);
 
-const { files, open, reset, onChange } = useFileDialog();
-
-onChange(files => {
-  console.log(files[0]);
-});
-
-const { toast, toastOptions } = useToast();
-
-const sendForm = async () => {
-  loading.value = true;
-  const formData = new FormData();
-  Object.values(files.value).forEach(file => {
-    formData.append("file", file);
-  });
-  formData.append("text", "RANDOM TEXT");
-  formData.append("tefsdfxt", "sfsaf");
-  formData.append("222", "112312");
-  formData.append("svsf sf sf", " sfs fs fs saf s fs");
-  const { data, error } = await useFetch("/api/sendMail", {
-    method: "POST",
-    body: formData,
-    //  firstName: firstName.value,
-    // lastName: lastName.value,
-    // tel: tel.value,
-    // email: email.value,
-    // file: files.value[0],
-  });
-  if (data.value && data.value.every(mail => mail.hasOwnProperty("messageId"))) {
-    toast.success("Лист надіслано!", toastOptions);
-    loading.value = false;
-  } else if (error.value) {
-    toast.error("Помилка!", toastOptions);
-    loading.value = false;
-  }
+const handleSendForm = async () => {
+  const data = {
+    firstName: firstName.value,
+    lastName: lastName.value,
+    tel: tel.value,
+    email: email.value,
+    policy: policy.value,
+    date: date.value,
+  };
+  useSendMail(data);
 };
 </script>

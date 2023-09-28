@@ -1,5 +1,5 @@
 <template>
-  <div  class="absolute right-0 top-full min-h-screen w-full max-w-sm bg-white">
+  <div  class="absolute right-0 shadow-lg top-full min-h-screen w-full max-w-sm bg-white">
     <TransitionGroup
       tag="ul"
       name="menu"
@@ -45,6 +45,10 @@ const nav = ref([
   {
     name: "Бренди",
     link: "/brands",
+  },
+  {
+    name: "Зв'язок",
+    link: "/feedback-form",
   },
 ]);
 </script>
