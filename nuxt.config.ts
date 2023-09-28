@@ -40,6 +40,7 @@ export default defineNuxtConfig({
     "nuxt-delay-hydration",
     "nuxt-simple-sitemap",
     "nuxt-simple-robots",
+    "nuxt-gtag",
   ],
   pinia: {
     autoImports: ["defineStore"],
@@ -47,6 +48,11 @@ export default defineNuxtConfig({
 
   swiper: {
     modules: ["pagination", "parallax", "autoplay"], // all modules are imported by default
+  },
+
+  gtag: {
+    id: 'G-5KKQ7XCKR2',
+    loadingStrategy: 'async'
   },
 
   supabase: {
