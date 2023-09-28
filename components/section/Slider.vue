@@ -1,4 +1,4 @@
-<template>
+<template>img
   <div class="slider-products pl-[calc(100%-1200px)] md:container">
     <h2 class="mb-8 text-center font-cormorant text-3xl uppercase md:mb-16">{{ title }}</h2>
     <div class="flex items-center gap-4 max-md:pl-4">
@@ -28,7 +28,9 @@
           <NuxtLink
             :to="`/catalog/${product.id}`"
             class="group flex h-full flex-col items-center">
-            <img
+            <NuxtImg
+            format="webp"
+            quality="50"
               :src="product.image[0]"
               :alt="product.name"
               class="mb-4 transition-transform duration-300 group-hover:-rotate-2 group-hover:scale-[1.02] sm:mb-8" />

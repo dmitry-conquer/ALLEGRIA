@@ -4,7 +4,9 @@
       <Logo class="opacity-30" />
     </span>
     <div class="relative bg-primary-light py-10">
-      <img
+      <NuxtImg
+      format="webp"
+            quality="50"
         src="/form-about.svg"
         alt="vector"
         class="absolute right-1/2 top-0 -translate-y-8 translate-x-32" />
@@ -24,12 +26,14 @@
             repellat eligendi deserunt maiores!
           </p>
         </div>
-        <div class="w-full max-lg:h-60 md:translate-y-1/3 lg:w-1/2 overflow-hidden">
-          <img
+        <div class="w-full overflow-hidden max-lg:h-60 md:translate-y-1/3 lg:w-1/2">
+          <NuxtImg
+            format="webp"
+            quality="50"
             src="/about.jpg"
             alt="about"
             :style="`transform: scale(${zoomValue})`"
-            class="block h-full transition-transform will-change-transform w-full object-cover" />
+            class="block h-full w-full object-cover transition-transform will-change-transform" />
         </div>
       </div>
     </div>

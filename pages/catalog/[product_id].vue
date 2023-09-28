@@ -4,7 +4,9 @@
       <div class="mb-32 flex flex-col gap-12 md:flex-row">
         <div class="flex w-full flex-col-reverse gap-2 sm:flex-row">
           <div class="flex flex-row gap-2 overflow-auto sm:flex-col">
-            <img
+            <NuxtImg
+              format="webp"
+              quality="10"
               v-for="(img, i) in product.image"
               @click="selectedImage = img"
               :key="i"
@@ -131,7 +133,7 @@ useSeoMeta({
 });
 
 useHead({
-  link: [{ rel: 'canonical', href: 'https://allegria-store.netlify.app' }],
+  link: [{ rel: "canonical", href: "https://allegria-store.netlify.app" }],
   script: [
     {
       src: "https://static.liqpay.ua/libjs/checkout.js",

@@ -16,7 +16,9 @@
         :key="i"
         class="dark-cover">
         <div class="grid h-full w-full place-content-center">
-          <img
+          <NuxtImg
+            format="webp"
+            quality="70" 
             :src="s.image"
             class="absolute left-0 top-0 h-full w-full object-cover"
             alt="AMERICAN VINTAGE" />

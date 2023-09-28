@@ -41,6 +41,7 @@ export default defineNuxtConfig({
     "nuxt-simple-sitemap",
     "nuxt-simple-robots",
     "nuxt-gtag",
+    "@nuxt/image"
   ],
   pinia: {
     autoImports: ["defineStore"],
@@ -53,6 +54,10 @@ export default defineNuxtConfig({
   gtag: {
     id: 'G-5KKQ7XCKR2',
     loadingStrategy: 'async'
+  },
+
+  image: {
+    domains: ['mgcrscqcxnwbrqseoapz.supabase.co']
   },
 
   supabase: {

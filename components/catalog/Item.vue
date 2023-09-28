@@ -10,7 +10,9 @@
           {{ product.label }}
         </span>
       </div>
-      <img
+      <NuxtImg
+      format="webp"
+            quality="10" 
         :src="product?.image[0]"
         :alt="product?.name"
         loading="lazy"

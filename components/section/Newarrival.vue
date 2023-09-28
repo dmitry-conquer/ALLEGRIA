@@ -1,7 +1,9 @@
 <template>
   <div class="flex flex-col bg-soft-dark md:flex-row">
     <div class="f-ull relative flex basis-2/5 flex-col justify-center overflow-hidden p-4 lg:pl-12">
-      <img
+      <NuxtImg
+        format="webp"
+        quality="50"
         src="/new_arrival_1.jpg"
         alt="new arrival"
         class="absolute left-0 top-0 h-full w-full object-cover" />
