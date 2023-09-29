@@ -7,7 +7,7 @@
         :throttle="50" />
       <div class="flex min-h-screen flex-col">
         <Header />
-        <main class="grow">
+        <main class="grow font-jost text-base text-primary-dark">
           <slot></slot>
         </main>
         <TheFooter />

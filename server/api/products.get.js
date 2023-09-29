@@ -5,7 +5,7 @@ export default eventHandler(async event => {
 
   const { category, size, total, ids, from, to } = getQuery(event);
 
-  const query = client.from("products").select("*, category(name)");
+  const query = client.from("products").select("*, category(*)");
   if (from && to) {
     query.gte("newPrice", from);
     query.lte("newPrice", to);

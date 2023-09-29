@@ -9,7 +9,7 @@ export default defineNuxtConfig({
         { name: "google-site-verification", content: "IlJCwkwBMXPIRCewcl-V4DWilVYRSKHuYclNa2S_zeI" },
       ],
     },
-    pageTransition: { name: "page", mode: "out-in" },
+    // pageTransition: { name: "page", mode: "out-in" },
   },
   devtools: { enabled: false },
   runtimeConfig: {
@@ -29,6 +29,7 @@ export default defineNuxtConfig({
     "/cart": { ssr: false },
     "/policy": { ssr: false },
     "/receipt": { ssr: false },
+    "/admin": { ssr: false },
   },
   css: ["~/assets/styles/style.scss"],
 

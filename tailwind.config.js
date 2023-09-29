@@ -24,6 +24,10 @@ export default {
           light: "#EAE9E8",
           dark: "#CEC6C4",
         },
+        admin: {
+          bg: "#F5F5F5",
+          brand: "#4A85F6",
+        },
       },
       fontFamily: {
         cormorant: ["Cormorant Garamond", "serif"],
