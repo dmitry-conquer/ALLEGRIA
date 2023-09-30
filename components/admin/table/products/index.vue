@@ -1,5 +1,5 @@
 <template>
-  <AdminTableProductsHeader class="mb-8"/>
+  <AdminTableProductsHeader class="mb-8" :categories="categories"/>
   <div class="w-full overflow-auto border border-gray-200 md:rounded-lg">
     <table class="min-w-full">
       <thead class="border-b border-gray-200 bg-gray-50">
@@ -60,7 +60,6 @@ const currentProduct = ref(null);
 const { data: products } = await useFetch("/api/products", {
   lazy: true,
 });
-console.log(products.value);
 const { data: categories } = await client.from("categories").select("*");
 
 function onOpenProductDetails(product) {

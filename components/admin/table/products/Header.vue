@@ -11,12 +11,23 @@
       <AdminBaseModal
         @close-modal="isOpen = false"
         v-if="isOpen">
-        <AdminEditProduct @close-product-details="isOpen = false" />
+        <AdminCreateProduct
+          @close-product-details="isOpen = false"
+          :categories="categories" />
       </AdminBaseModal>
     </Transition>
   </div>
 </template>
 
 <script setup>
+const props = defineProps({
+  categories: {
+    type: Array,
+    required: true,
+    default: [],
+    validator: arr => arr.length > 0,
+  },
+});
+
 const isOpen = ref(false);
 </script>

@@ -40,9 +40,9 @@ const props = defineProps({
 const emit = defineEmits({
   "update-files": value => typeof value === "object",
 });
-
+useAdminUpdateProduct
 const { open, onChange } = useFileDialog();
-const imagesURLs = ref([...props?.images] || []);
+const imagesURLs = ref([...props.images]);
 
 function onRemoveImage(index) {
   useAdminRemoveImage(imagesURLs.value, index);
