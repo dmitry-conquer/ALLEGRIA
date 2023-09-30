@@ -18,15 +18,17 @@
     <div class="flex items-center">
       <button
         v-if="!isEditable"
-        @click="isEditable = true"
+        @click="openInput"
         class="group grid h-8 w-8 place-content-center rounded-md bg-admin-bg text-sm leading-none text-gray-600 transition-colors hover:bg-gray-200"
         type="button">
         <AdminIconAdd class="h-4 w-4 text-gray-600 transition-colors group-hover:text-blue-500" />
       </button>
-      <form @submit.prevent="onAddItemList"
+      <form
+        @submit.prevent="onAddItemList"
         v-if="isEditable"
         class="flex items-center gap-2 rounded-md">
         <input
+          ref="inputField"
           v-model="newSize"
           type="text"
           class="w-20 rounded-md bg-admin-bg p-1 focus:outline-none" />
@@ -57,14 +59,14 @@ const props = defineProps({
   },
 });
 
-const newSize = ref("");
-
 const emit = defineEmits({
   "on-update-list": value => value.length > 0,
 });
 
+const newSize = ref("");
 const isEditable = ref(false);
 const refSizes = ref(props.sizes);
+const inputField = ref(null);
 
 function onAddItemList() {
   refSizes.value.push(newSize.value);
@@ -72,6 +74,14 @@ function onAddItemList() {
   newSize.value = "";
   isEditable.value = false;
 }
+
+function openInput() {
+  isEditable.value = true;
+  nextTick(() => {
+    inputField.value.focus();
+  });
+}
+
 function onRemoveItemList(index) {
   refSizes.value.splice(index, 1);
   emit("on-update-list", refSizes.value);

@@ -1,4 +1,5 @@
 <template>
+  <AdminTableProductsHeader class="mb-8"/>
   <div class="w-full overflow-auto border border-gray-200 md:rounded-lg">
     <table class="min-w-full">
       <thead class="border-b border-gray-200 bg-gray-50">
@@ -31,6 +32,7 @@
             <AdminTableProductsImages
               :images="product.image"
               :alt="product.name" />
+           
           </td>
           <td class="whitespace-nowrap p-4 text-sm text-gray-600">
             <AdminTableProductsActions @open-product-details="onOpenProductDetails(product)" />

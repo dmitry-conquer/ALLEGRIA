@@ -22,7 +22,7 @@ defineProps({
   },
   currentCategoryId: {
     type: String,
-    required: true,
+    required: false,
   },
 });
 defineEmits(["update:currentCategoryId"]);

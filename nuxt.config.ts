@@ -53,7 +53,7 @@ export default defineNuxtConfig({
   },
 
   gtag: {
-    id: 'G-5KKQ7XCKR2',
+    id: 'G-L7JMEBJY4E',
     loadingStrategy: 'async'
   },
 

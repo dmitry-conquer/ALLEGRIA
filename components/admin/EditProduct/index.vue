@@ -3,8 +3,14 @@
     <div class="flex gap-10">
       <div>
         <div class="mb-6 border-b pb-4">
-          <h2 class="mb-2 text-2xl font-semibold leading-tight">{{ product.name }}</h2>
-          <p class="text-sm text-gray-600">{{ product.description }}</p>
+          <input
+            type="text"
+            v-model="name"
+            class="mb-2 w-fit rounded-md border border-gray-200 px-2 py-1 text-2xl font-semibold leading-tight transition-colors focus:border-admin-brand focus:outline-none" />
+          <input
+            type="text"
+            v-model="description"
+            class="rounded-md border border-gray-200 px-2 py-1 text-sm text-gray-600 transition-colors focus:border-admin-brand focus:outline-none" />
         </div>
         <div class="mb-6 flex gap-4">
           <label class="flex flex-col gap-1.5">
@@ -37,13 +43,15 @@
           :sizes="sizes"
           @on-update-list="onUpdateSizesList" />
       </div>
-      <AdminEditProductImages :images="product.image" />
+      <AdminEditProductImages
+        :images="images"
+        @update-files="onUpdateFiles" />
     </div>
     <div class="mt-10 flex h-11 items-center justify-center">
       <AdminPendingLoader v-if="pending" />
       <button
         v-else
-        @click="onSaveProduct"
+        @click="onUpdateProduct"
         type="button"
         class="rounded-md bg-admin-brand px-3 py-2 text-white transition-colors hover:bg-admin-brand/80">
         Зберегти
@@ -56,11 +64,11 @@
 const props = defineProps({
   product: {
     type: Object,
-    required: true,
+    required: false,
   },
   categories: {
     type: Object,
-    required: true,
+    required: false,
   },
 });
 
@@ -68,41 +76,39 @@ const emit = defineEmits({
   "close-product-details": null,
 });
 
-const client = useSupabaseClient();
-
 const pending = ref(false);
-const sizes = ref(props.product.sizes);
-const newPrice = ref(props.product.newPrice);
-const oldPrice = ref(props.product.oldPrice);
-const label = ref(props.product.label);
-const currentCategoryId = ref(props.product.category.id);
+const name = ref(props?.product?.name);
+const description = ref(props?.product?.description);
+const sizes = ref([...props?.product?.sizes]);
+const newPrice = ref(props?.product?.newPrice);
+const oldPrice = ref(props?.product?.oldPrice);
+const label = ref(props?.product?.label);
+const currentCategoryId = ref(props?.product?.category.id);
+const images = ref([...props?.product?.image]);
 
 function onUpdateSizesList(newValue) {
   sizes.value = newValue;
 }
+function onUpdateFiles(newValue) {
+  images.value = newValue;
+}
 
-async function onSaveProduct() {
+async function onUpdateProduct() {
   pending.value = true;
-  const { data, error } = await client
-    .from("products")
-    .update({
-      sizes: sizes.value,
-      category: currentCategoryId.value,
-      newPrice: newPrice.value,
-      oldPrice: oldPrice.value,
-      label: label.value,
-    })
-    .eq("id", props.product.id)
-    .select();
-  if (data) {
-    console.log("ok");
-    pending.value = false;
-    refreshNuxtData();
+  const updatedProduct = {
+    name: name.value,
+    description: description.value,
+    sizes: sizes.value,
+    category: currentCategoryId.value,
+    newPrice: newPrice.value,
+    oldPrice: oldPrice.value,
+    label: label.value,
+    image: images.value,
+  };
+  const result = await updateProduct(updatedProduct, props.product.id);
+  if (result) {
     emit("close-product-details");
   }
-  if (error) {
-    console.error(error);
-    pending.value = false;
-  }
+  pending.value = false;
 }
 </script>
