@@ -1,6 +1,5 @@
 <template>
   <div class="h-screen w-full">
-    <h1 class="sr-only">Популярні колекції</h1>
     <Swiper
       :modules="[SwiperPagination, SwiperParallax, SwiperAutoplay]"
       @swiper="onSwiper"

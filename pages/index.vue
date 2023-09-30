@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1 class="sr-only">Allegria Магазин жіночого одягу</h1>
     <SectionHero class="mb-14 md:mb-28" />
     <SectionNewarrival class="mb-14 md:mb-28" />
     <SectionSlider
@@ -13,10 +14,10 @@
 <script setup>
 useSchemaOrg([
   defineWebSite({
-    name: 'Allegria | Магазин жіночого одягу',
+    name: "Allegria | Магазин жіночого одягу",
   }),
   defineWebPage(),
-])
+]);
 
 definePageMeta({
   pageTransition: {
@@ -34,13 +35,13 @@ useSeoMeta({
   ogTitle: `Allegria | Магазин жіночого одягу`,
   ogImage: "https://example.com/image.png",
   ogLocale: "uk_UA",
-  ogSiteName: "Allegria", 
+  ogSiteName: "Allegria",
   ogDescription:
     "Allegria - ваш унікальний інтернет-магазин жіночого одягу. Відкрийте для себе найсвіжіші та найстильніші колекції від улюблених дизайнерів і зробіть свій гардероб ще більш елегантним та стильним.",
   twitterCard: "summary_large_image",
   twitterDescription:
     "Allegria - ваш унікальний інтернет-магазин жіночого одягу. Відкрийте для себе найсвіжіші та найстильніші колекції від улюблених дизайнерів і зробіть свій гардероб ще більш елегантним та стильним.",
-  twitterImage: "https://example.com/image.png", 
+  twitterImage: "https://example.com/image.png",
   twitterTitle: `Allegria | Магазин жіночого одягу`,
 });
 
