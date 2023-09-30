@@ -6,7 +6,7 @@ export default defineNuxtConfig({
       title: "Allegria",
       meta: [
         { name: "author", content: "Dmitry Conquer" },
-        { name: "google-site-verification", content: "IlJCwkwBMXPIRCewcl-V4DWilVYRSKHuYclNa2S_zeI" },
+        { name: "google-site-verification", content: "UpXdwz9Dg-EP51veCDxZ0EIg_UJu6j8qh-5sU3FVqlg" },
       ],
     },
     // pageTransition: { name: "page", mode: "out-in" },
