@@ -42,7 +42,8 @@ export default defineNuxtConfig({
     "nuxt-simple-sitemap",
     "nuxt-simple-robots",
     "nuxt-gtag",
-    "@nuxt/image"
+    "@nuxt/image",
+    "nuxt-schema-org",
   ],
   pinia: {
     autoImports: ["defineStore"],
@@ -53,13 +54,17 @@ export default defineNuxtConfig({
   },
 
   gtag: {
-    id: 'G-L7JMEBJY4E',
-    loadingStrategy: 'async'
+    id: "G-L7JMEBJY4E",
+    loadingStrategy: "async",
   },
-
+  site: {
+    url: 'https://allegria.shop/',
+    name: 'Allegria',
+  }
+,
   image: {
-    domains: ['mgcrscqcxnwbrqseoapz.supabase.co'],
-    provider: "ipx"
+    domains: ["mgcrscqcxnwbrqseoapz.supabase.co"],
+    provider: "ipx",
   },
 
   supabase: {

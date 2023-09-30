@@ -22,23 +22,23 @@ useSeoMeta({
   keywords: "Allegria, магазин, жіночий одяг, брендовий одяг, стиль, одежа жіноча, syjxbq jlzu",
   description:
     "Allegria - ваш унікальний інтернет-магазин брендового одягу. Відкрийте для себе найсвіжіші та найстильніші колекції від улюблених дизайнерів і зробіть свій гардероб ще більш елегантним та стильним.",
-  ogUrl: `https://allegria-store.netlify.app`,
+  ogUrl: `https://allegria.shop/`,
   ogType: "website",
   ogTitle: `Allegria | Магазин жіночого одягу`,
-  ogImage: "https://example.com/image.png", //1200x630
+  ogImage: "https://example.com/image.png",
   ogLocale: "uk_UA",
-  ogSiteName: "Allegria", // Назва вашого сайту
+  ogSiteName: "Allegria", 
   ogDescription:
-    "Allegria - ваш унікальний інтернет-магазин брендового одягу. Відкрийте для себе найсвіжіші та найстильніші колекції від улюблених дизайнерів і зробіть свій гардероб ще більш елегантним та стильним.",
+    "Allegria - ваш унікальний інтернет-магазин жіночого одягу. Відкрийте для себе найсвіжіші та найстильніші колекції від улюблених дизайнерів і зробіть свій гардероб ще більш елегантним та стильним.",
   twitterCard: "summary_large_image",
   twitterDescription:
-    "Allegria - ваш унікальний інтернет-магазин брендового одягу. Відкрийте для себе найсвіжіші та найстильніші колекції від улюблених дизайнерів і зробіть свій гардероб ще більш елегантним та стильним.",
-  twitterImage: "https://example.com/image.png", //1200x630
+    "Allegria - ваш унікальний інтернет-магазин жіночого одягу. Відкрийте для себе найсвіжіші та найстильніші колекції від улюблених дизайнерів і зробіть свій гардероб ще більш елегантним та стильним.",
+  twitterImage: "https://example.com/image.png", 
   twitterTitle: `Allegria | Магазин жіночого одягу`,
 });
 
 useHead({
-  link: [{ rel: "canonical", href: "https://allegria-store.netlify.app" }],
+  link: [{ rel: "canonical", href: "https://allegria.shop/" }],
   htmlAttrs: { lang: "uk" },
 });
 </script>
