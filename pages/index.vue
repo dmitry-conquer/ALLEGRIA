@@ -11,6 +11,13 @@
 </template>
 
 <script setup>
+useSchemaOrg([
+  defineWebSite({
+    name: 'Allegria | Магазин жіночого одягу',
+  }),
+  defineWebPage(),
+])
+
 definePageMeta({
   pageTransition: {
     name: "page",
