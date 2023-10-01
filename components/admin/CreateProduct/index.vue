@@ -56,7 +56,7 @@
       <AdminPendingLoader v-if="pending" />
       <button
         v-else
-        @click="updateProduct"
+        @click="createProduct"
         type="button"
         class="rounded-md bg-admin-brand px-3 py-2 text-white transition-colors hover:bg-admin-brand/80">
         Зберегти
@@ -96,7 +96,7 @@ function onUpdateFiles(newValue) {
   images.value = newValue;
 }
 
-async function updateProduct() {
+async function createProduct() {
   pending.value = true;
   const product = {
     name: name.value,
@@ -108,7 +108,11 @@ async function updateProduct() {
     category: currentCategoryId.value,
     image: images.value,
   };
-  await useAdminCreateProduct(product);
+  const result = await useAdminCreateProduct(product);
+  if (result) {
+    refreshNuxtData();
+    emit("close-product-details");
+  }
   pending.value = false;
 }
 </script>

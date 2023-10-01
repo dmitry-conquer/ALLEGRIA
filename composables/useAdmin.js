@@ -10,35 +10,29 @@ export async function useAdminUploadFiles(images, files) {
     if (uploadError) {
       toast.update(toastLoading, {
         render: `${uploadError.message}`,
-        autoClose: 2000,
-        closeOnClick: true,
-        closeButton: true,
-        type: "error",
         isLoading: false,
+        type: "error",
+        ...toastOptions,
       });
       return;
     }
     const { data, error: getUrlError } = client.storage.from("products_images").getPublicUrl(file.name);
     if (getUrlError) {
       toast.update(toastLoading, {
-        render: "Помилка!",
-        autoClose: 2000,
-        closeOnClick: true,
-        closeButton: true,
-        type: "error",
+        render: `${getUrlError.message}`,
         isLoading: false,
+        type: "error",
+        ...toastOptions,
       });
       return;
     }
     images.push(data.publicUrl);
   }
   toast.update(toastLoading, {
-    render: "Завантажено!",
-    autoClose: 2000,
-    closeOnClick: true,
-    closeButton: true,
-    type: "success",
+    render: `Завантажено!`,
     isLoading: false,
+    type: "success",
+    ...toastOptions,
   });
 }
 
@@ -49,60 +43,70 @@ export async function useAdminRemoveImage(images, index) {
 export async function useAdminUpdateProduct(product, id) {
   const client = useSupabaseClient();
   const { toast, toastOptions } = useToast();
-  const toastId = toast.loading("Зберігаю...", toastOptions);
+  const toastLoading = toast.loading("Зберігаю...", toastOptions);
 
   const { error } = await client.from("products").update(product).eq("id", id);
   if (error) {
-    toast.update(toastId, {
-      render: "Помилка!",
-      autoClose: 2000,
-      closeOnClick: true,
-      closeButton: true,
-      type: "error",
+    toast.update(toastLoading, {
+      render: `${error.message}`,
       isLoading: false,
+      type: "error",
+      ...toastOptions,
     });
     return false;
-  } else {
-    refreshNuxtData();
-    toast.update(toastId, {
-      render: "Збережено!",
-      autoClose: 2000,
-      closeOnClick: true,
-      closeButton: true,
-      type: "success",
-      isLoading: false,
-    });
-    return true;
   }
+  toast.update(toastLoading, {
+    render: `Збережено!`,
+    isLoading: false,
+    type: "success",
+    ...toastOptions,
+  });
+  return true;
 }
 
 export async function useAdminCreateProduct(product) {
   const client = useSupabaseClient();
   const { toast, toastOptions } = useToast();
-  const toastId = toast.loading("Зберігаю...", toastOptions);
+  const toastLoading = toast.loading("Створюю...", toastOptions);
 
   const { error } = await client.from("products").insert(product);
   if (error) {
-    toast.update(toastId, {
-      render: "Помилка!",
-      autoClose: 2000,
-      closeOnClick: true,
-      closeButton: true,
+    toast.update(toastLoading, {
+      render: `${error.message}`,
+      isLoading: false,
       type: "error",
-      isLoading: false,
+      ...toastOptions,
     });
-    console.log(error.message);
     return false;
-  } else {
-    refreshNuxtData();
-    toast.update(toastId, {
-      render: "Збережено!",
-      autoClose: 2000,
-      closeOnClick: true,
-      closeButton: true,
-      type: "success",
-      isLoading: false,
-    });
-    return true;
   }
+  toast.update(toastLoading, {
+    render: `Створено!`,
+    isLoading: false,
+    type: "success",
+    ...toastOptions,
+  });
+  return true;
+}
+
+export async function useAdminDeleteProduct(id) {
+  const client = useSupabaseClient();
+  const { toast, toastOptions } = useToast();
+  const toastLoading = toast.loading("Видаляю...", toastOptions);
+  const { error } = await client.from("products").delete().eq("id", id);
+  if (error) {
+    toast.update(toastLoading, {
+      render: `${error.message}`,
+      isLoading: false,
+      type: "error",
+      ...toastOptions,
+    });
+    return false;
+  }
+  toast.update(toastLoading, {
+    render: `Видалено!`,
+    isLoading: false,
+    type: "success",
+    ...toastOptions,
+  });
+  return true;
 }

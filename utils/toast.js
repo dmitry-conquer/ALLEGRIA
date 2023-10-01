@@ -4,9 +4,8 @@ import "vue3-toastify/dist/index.css";
 export function useToast() {
   const toastOptions = {
     position: toast.POSITION.TOP_RIGHT,
-    type: toast.TYPE.DEFAULT,
     closeOnClick: true,
-    autoClose: 4000,
+    autoClose: 2000,
     hideProgressBar: true,
     theme: toast.THEME.LIGHT,
     transition: toast.TRANSITIONS.BOUNCE,

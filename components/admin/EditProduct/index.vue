@@ -107,6 +107,7 @@ async function onUpdateProduct() {
   };
   const result = await useAdminUpdateProduct(updatedProduct, props.product.id);
   if (result) {
+    refreshNuxtData();
     emit("close-product-details");
   }
   pending.value = false;

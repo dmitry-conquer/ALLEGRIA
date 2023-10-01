@@ -1,6 +1,8 @@
 <template>
-  <AdminTableProductsHeader class="mb-8" :categories="categories"/>
-  <div class="w-full overflow-auto border border-gray-200 md:rounded-lg">
+  <AdminTableProductsHeader
+    class="mb-8"
+    :categories="categories" />
+  <div class="w-full overflow-auto rounded-md rounded-b-none border border-gray-200">
     <table class="min-w-full">
       <thead class="border-b border-gray-200 bg-gray-50">
         <tr>
@@ -32,10 +34,12 @@
             <AdminTableProductsImages
               :images="product.image"
               :alt="product.name" />
-           
           </td>
           <td class="whitespace-nowrap p-4 text-sm text-gray-600">
-            <AdminTableProductsActions @open-product-details="onOpenProductDetails(product)" />
+            <AdminTableProductsActions
+              @delete-product="onDeleteProduct(product.id)"
+              @open-product-details="onOpenProductDetails(product)"
+              :deletePending="deletePending" />
           </td>
         </tr>
       </tbody>
@@ -45,24 +49,53 @@
         @close-modal="currentProduct = null"
         v-if="currentProduct">
         <AdminEditProduct
-        @close-product-details="currentProduct = null"
+          @close-product-details="currentProduct = null"
           :product="currentProduct"
           :categories="categories" />
       </AdminBaseModal>
     </Transition>
   </div>
+  <AdminTableProductsFooter :range="[from, to]" />
 </template>
 
 <script setup>
+const route = useRoute();
+
 const client = useSupabaseClient();
 const currentProduct = ref(null);
+const deletePending = ref(false);
 
-const { data: products } = await useFetch("/api/products", {
-  lazy: true,
+const itemsPerPage = computed(() => route.query.perPage || 5);
+const page = computed(() => route.query.page || 1);
+const from = computed(() => itemsPerPage.value * page.value - itemsPerPage.value);
+const to = computed(() => itemsPerPage.value * page.value - 1);
+const { data: products } = await useAsyncData(
+  "products",
+  async () => {
+    const { data } = await client.from("products").select("*, category(*)").range(from.value, to.value);
+    return data;
+  },
+  {
+    lazy: true,
+    watch: [itemsPerPage, page],
+  },
+);
+
+const { data: categories } = await useAsyncData("categories", async () => {
+  const { data } = await client.from("categories").select("*");
+  return data;
 });
-const { data: categories } = await client.from("categories").select("*");
 
 function onOpenProductDetails(product) {
   currentProduct.value = product;
+}
+
+async function onDeleteProduct(id) {
+  deletePending.value = true;
+  const result = await useAdminDeleteProduct(id);
+  if (result) {
+    refreshNuxtData();
+  }
+  deletePending.value = false;
 }
 </script>
