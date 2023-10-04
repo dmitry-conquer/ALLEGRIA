@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-wrap gap-4 items-center justify-between">
-    <span class="font-medium text-gray-400"><span>Товарів:</span> {{ quantity }} </span>
+    <span class="font-medium text-admin-text-light"><span>Товарів:</span> {{ quantity }} </span>
     <div class="flex  items-center gap-3">
       <span>Сортувати: </span>
       <select

@@ -1,5 +1,5 @@
 <template>
-  <div class="grow w-full  bg-admin-bg px-6 py-8">
+  <div class="grow w-full  bg-admin-secondary px-6 py-8">
    <AdminHeader />
    <main>
      <NuxtPage />

@@ -1,10 +1,10 @@
 <template>
   <label class="flex flex-col gap-1.5">
-    <span class="text-sm text-gray-600">Категорія</span>
+    <span class="text-sm text-admin-text">Категорія</span>
     <select
       @change="$emit('update:currentCategoryId', $event.target.value)"
       :value="currentCategoryId"
-      class="w-full rounded-md border border-gray-200 bg-white p-2 text-sm transition-colors focus:border-admin-brand focus:outline-none">
+      class="w-full rounded-md border border-gray-200 bg-white p-2 text-sm transition-colors focus:border-admin-primary focus:outline-none">
       <option
         v-for="category in categories"
         :value="category.id">

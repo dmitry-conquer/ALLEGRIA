@@ -15,7 +15,7 @@
           type="text"
           v-model="range[0]"
           class="w-full border p-1 text-sm leading-none focus:outline-none" />
-        <span class="text-gray-400">—</span>
+        <span class="text-admin-text-light">—</span>
         <input
           type="text"
           v-model="range[1]"

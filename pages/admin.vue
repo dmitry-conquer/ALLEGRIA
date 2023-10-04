@@ -1,5 +1,5 @@
 <template>
-  <div class="admin flex min-h-screen">
+  <div class="admin flex min-h-screen bg-admin-secondary">
     <AdminSidebar />
     <AdminMain />
   </div>
@@ -7,7 +7,7 @@
 
 <script setup>
 definePageMeta({
-  layout: "no-ui",
+  layout: "admin",
 });
 </script>
 

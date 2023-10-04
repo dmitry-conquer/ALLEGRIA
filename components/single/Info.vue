@@ -47,7 +47,7 @@
 
       <div>
         <h2 class="mb-2 uppercase">ІНФОРМАЦІЯ ПРО ТОВАР</h2>
-        <p class="text-sm text-gray-600">
+        <p class="text-sm text-admin-text">
           {{ product.description }}
         </p>
       </div>

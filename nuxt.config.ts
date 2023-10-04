@@ -58,10 +58,9 @@ export default defineNuxtConfig({
     loadingStrategy: "async",
   },
   site: {
-    url: 'https://allegria.shop/',
-    name: 'Allegria',
-  }
-,
+    url: "https://allegria.shop/",
+    name: "Allegria",
+  },
   image: {
     domains: ["mgcrscqcxnwbrqseoapz.supabase.co"],
     provider: "ipx",

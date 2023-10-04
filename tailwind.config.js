@@ -25,8 +25,36 @@ export default {
           dark: "#CEC6C4",
         },
         admin: {
-          bg: "#F5F5F5",
-          brand: "#4A85F6",
+          primary: {
+            DEFAULT: "#264cc8",
+            light: "#4067e9",
+            dark: "#1b368f",
+          },
+          secondary: {
+            DEFAULT: "#f4f5fa",
+            light: "#f7f7f8",
+            dark: "#4d5056",
+          },
+          success: {
+            DEFAULT: "#d1fae5",
+            light: "#e3fcef",
+            dark: "#166534",
+          },
+          danger: {
+            DEFAULT: "#fee2e2",
+            light: "#feeeee",
+            dark: "#ef4444",
+          },
+          warning: {
+            DEFAULT: "#ffb400",
+            light: "#ffb547",
+            dark: "#a37300",
+          },
+          text: {
+            DEFAULT: "#79767e",
+            light: "#b4b2b7",
+            dark: "#676c74",
+          },
         },
       },
       fontFamily: {

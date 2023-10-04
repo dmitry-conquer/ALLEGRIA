@@ -13,7 +13,7 @@
       class="-mx-1 h-7 w-7 rounded-full object-cover" />
     <div
       v-if="images.length > 4"
-      class="-mx-1 h-7 w-7 place-content-center rounded-full bg-admin-brand text-white flex items-center">
+      class="-mx-1 h-7 w-7 place-content-center rounded-full bg-admin-primary text-white flex items-center">
       <span>+</span>
       <span>{{images.length - 4}}</span>
     </div>

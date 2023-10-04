@@ -1,12 +1,12 @@
 <template>
   <div>
-    <p class="text-sm text-gray-600 mb-1.5">Розміри</p>
+    <p class="mb-1.5 text-sm text-admin-text">Розміри</p>
     <div class="flex items-center gap-2">
       <ul class="flex gap-2">
         <li
           v-for="(size, index) in refSizes"
           :key="size"
-          class="group relative grid h-8 w-8 place-content-center rounded-md border text-sm leading-none text-gray-600">
+          class="group relative grid h-8 w-8 place-content-center rounded-md border text-sm leading-none text-admin-text">
           <span>{{ size }}</span>
           <button
             @click="onRemoveItemList(index)"
@@ -20,9 +20,9 @@
         <button
           v-if="!isEditable"
           @click="openInput"
-          class="group grid h-8 w-8 place-content-center rounded-md bg-admin-bg text-sm leading-none text-gray-600 transition-colors hover:bg-gray-200"
+          class="group grid h-8 w-8 place-content-center rounded-md bg-admin-secondary text-sm leading-none text-admin-text transition-colors hover:bg-gray-200"
           type="button">
-          <AdminIconAdd class="h-4 w-4 text-gray-600 transition-colors group-hover:text-blue-500" />
+          <AdminIconAdd class="h-4 w-4 text-admin-text transition-colors group-hover:text-blue-500" />
         </button>
         <form
           @submit.prevent="onAddItemList"
@@ -32,17 +32,17 @@
             ref="inputField"
             v-model="newSize"
             type="text"
-            class="w-20 rounded-md bg-admin-bg p-1 focus:outline-none" />
+            class="w-20 rounded-md bg-admin-secondary p-1 focus:outline-none" />
           <div class="flex gap-1">
             <button
               :disabled="newSize.length <= 0"
-              class="group grid h-7 w-7 place-content-center rounded-md bg-emerald-100/60 text-sm leading-none text-emerald-500 transition-colors hover:bg-emerald-100 disabled:opacity-30"
+              class="bg-admin-success-light text-admin-success-dark hover:bg-admin-success group grid h-7 w-7 place-content-center rounded-md text-sm leading-none transition-colors disabled:opacity-30"
               type="submit">
               <AdminIconCheck class="h-5 w-5" />
             </button>
             <button
               @click="isEditable = false"
-              class="group grid h-7 w-7 place-content-center rounded-md bg-red-100/60 text-sm leading-none text-red-500 transition-colors hover:bg-red-100"
+              class="bg-admin-danger-light text-admin-danger-dark hover:bg-admin-danger group grid h-7 w-7 place-content-center rounded-md text-sm leading-none transition-colors"
               type="button">
               <AdminIconClose class="h-5 w-5" />
             </button>

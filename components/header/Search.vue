@@ -36,7 +36,7 @@
             <NuxtLink
               @click="search = ''"
               :to="`/catalog/${product.id}`"
-              class="flex gap-4 px-4 py-2 text-lg font-medium leading-tight text-gray-500 transition-colors hover:bg-gray-100">
+              class="flex gap-4 px-4 py-2 text-lg font-medium leading-tight text-admin-text transition-colors hover:bg-gray-100">
               <img
                 :src="product.image[0]"
                 :alt="product.name"

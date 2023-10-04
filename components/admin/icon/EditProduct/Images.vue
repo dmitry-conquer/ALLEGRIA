@@ -21,9 +21,9 @@
     </div>
     <button
       @click="open"
-      class="group grid h-[120px] w-[90px] place-content-center bg-admin-bg transition-colors hover:bg-gray-200"
+      class="group grid h-[120px] w-[90px] place-content-center bg-admin-secondary transition-colors hover:bg-gray-200"
       type="button">
-      <AdminIconAdd class="h-6 w-6 text-gray-600 transition-colors group-hover:text-blue-500" />
+      <AdminIconAdd class="h-6 w-6 text-admin-text transition-colors group-hover:text-blue-500" />
     </button>
   </div>
 </template>

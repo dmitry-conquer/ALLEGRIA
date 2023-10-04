@@ -43,12 +43,12 @@
   span {
     display: inline-block;
     margin: 0 5px;
-    color: #E64926;
+    color: #e64926;
     font-family: "Cormorant Garamond", sans-serif;
     @for $i from 0 through 7 {
       &:nth-child(#{$i + 1}) {
         filter: blur(0px);
-        animation: blur-text 1.5s (#{$i/5}) + s infinite linear alternate;
+        animation: blur-text 1.5s (calc($i / 5)) + s infinite linear alternate;
       }
     }
   }

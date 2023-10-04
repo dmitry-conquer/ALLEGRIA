@@ -21,9 +21,9 @@
     </div>
     <button
       @click="open"
-      class="group grid h-[120px] w-[90px] place-content-center bg-admin-bg transition-colors hover:bg-gray-200"
+      class="group grid h-[120px] w-[90px] place-content-center bg-admin-secondary transition-colors hover:bg-gray-200"
       type="button">
-      <AdminIconAdd class="h-6 w-6 text-gray-600 transition-colors group-hover:text-blue-500" />
+      <AdminIconAdd class="h-6 w-6 text-admin-text transition-colors group-hover:text-blue-500" />
     </button>
   </div>
 </template>
@@ -40,7 +40,7 @@ const props = defineProps({
 const emit = defineEmits({
   "update-files": value => typeof value === "object",
 });
-useAdminUpdateProduct
+useAdminUpdateProduct;
 const { open, onChange } = useFileDialog();
 const imagesURLs = ref([...props.images]);
 
@@ -49,7 +49,8 @@ function onRemoveImage(index) {
   emit("update-files", imagesURLs.value);
 }
 onChange(async files => {
-  await useAdminUploadFiles(imagesURLs.value, files);
+  const images = await useAdminUploadFiles([...imagesURLs.value], files);
+  imagesURLs.value = typeof images === "string" ? [images] : images;
   emit("update-files", imagesURLs.value);
 });
 </script>

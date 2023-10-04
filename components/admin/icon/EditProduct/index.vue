@@ -6,33 +6,33 @@
           <input
             type="text"
             v-model="name"
-            class="mb-2 w-full rounded-md border border-gray-200 px-2 py-1 text-2xl font-semibold leading-tight transition-colors focus:border-admin-brand focus:outline-none" />
+            class="mb-2 w-full rounded-md border border-gray-200 px-2 py-1 text-2xl font-semibold leading-tight transition-colors focus:border-admin-primary focus:outline-none" />
 
           <textarea
             v-model="description"
-            class="rounded-md w-full h-20 resize-none border border-gray-200 px-2 py-1 text-sm text-gray-600 transition-colors focus:border-admin-brand focus:outline-none"></textarea>
+            class="rounded-md w-full h-20 resize-none border border-gray-200 px-2 py-1 text-sm text-admin-text transition-colors focus:border-admin-primary focus:outline-none"></textarea>
         </div>
         <div class="mb-6 flex gap-4">
           <label class="flex flex-col gap-1.5">
-            <span class="text-sm text-gray-600">Ціна</span>
+            <span class="text-sm text-admin-text">Ціна</span>
             <input
               v-model="oldPrice"
               type="text"
-              class="w-32 rounded-md border border-gray-200 px-2 py-2 text-sm transition-colors focus:border-admin-brand focus:outline-none" />
+              class="w-32 rounded-md border border-gray-200 px-2 py-2 text-sm transition-colors focus:border-admin-primary focus:outline-none" />
           </label>
           <label class="flex flex-col gap-1.5">
-            <span class="text-sm text-gray-600">Акційна ціна</span>
+            <span class="text-sm text-admin-text">Акційна ціна</span>
             <input
               v-model="newPrice"
               type="text"
-              class="w-32 rounded-md border border-gray-200 px-2 py-2 text-sm transition-colors focus:border-admin-brand focus:outline-none" />
+              class="w-32 rounded-md border border-gray-200 px-2 py-2 text-sm transition-colors focus:border-admin-primary focus:outline-none" />
           </label>
           <label class="flex flex-col gap-1.5">
-            <span class="text-sm text-gray-600">Лейбл</span>
+            <span class="text-sm text-admin-text">Лейбл</span>
             <input
               v-model="label"
               type="text"
-              class="w-32 rounded-md border border-gray-200 px-2 py-2 text-sm transition-colors focus:border-admin-brand focus:outline-none" />
+              class="w-32 rounded-md border border-gray-200 px-2 py-2 text-sm transition-colors focus:border-admin-primary focus:outline-none" />
           </label>
         </div>
         <AdminEditProductCategories
@@ -53,7 +53,7 @@
         v-else
         @click="onUpdateProduct"
         type="button"
-        class="rounded-md bg-admin-brand px-3 py-2 text-white transition-colors hover:bg-admin-brand/80">
+        class="rounded-md bg-admin-primary px-3 py-2 text-white transition-colors hover:bg-admin-primary/80">
         Зберегти
       </button>
     </div>

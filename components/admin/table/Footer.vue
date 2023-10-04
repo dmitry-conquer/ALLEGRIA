@@ -1,16 +1,16 @@
 <template>
   <div
-    class="flex items-center justify-center gap-20 rounded-md rounded-t-none border border-t-0 border-gray-200 bg-gray-50 px-4 pb-6 pt-10">
+    class="flex items-center justify-center gap-20 rounded-md rounded-t-none border border-t-0 border-gray-200 bg-admin-secondary-light px-4 pb-6 pt-10">
     <div class="flex items-center gap-3">
-      <p class="text-sm text-gray-500">Товарів на сторінці</p>
+      <p class="text-sm text-admin-text">{{ text }}</p>
       <input
         @change="onItemPerPageUpdate"
         v-model="itemPerPage"
         type="number"
-        class="text w-10 border-b border-gray-500 bg-transparent text-center text-sm text-gray-500 focus:border-admin-brand focus:outline-none" />
+        class="text w-10 border-b border-gray-500 bg-transparent text-center text-sm text-admin-text focus:border-admin-primary focus:outline-none" />
     </div>
     <div>
-      <p class="text-sm text-gray-500">{{ from }}-{{ to }} з {{ count }}</p>
+      <p class="text-sm text-admin-text">{{ from }}-{{ to }} з {{ count }}</p>
     </div>
     <div class="flex items-center gap-4">
       <button
@@ -18,14 +18,14 @@
         :disabled="isFirstPage"
         class="group rounded-lg p-2 transition-colors hover:bg-gray-200 disabled:opacity-30"
         type="button">
-        <AdminIconArrow class="h-5 w-5 rotate-180 text-gray-500 transition-colors group-hover:text-admin-brand" />
+        <AdminIconArrow class="h-5 w-5 rotate-180 text-admin-text transition-colors group-hover:text-admin-primary" />
       </button>
       <button
         @click="nextPage"
         :disabled="isLastPage"
         class="group rounded-lg p-2 transition-colors hover:bg-gray-200 disabled:opacity-30"
         type="button">
-        <AdminIconArrow class="h-5 w-5 text-gray-500 transition-colors group-hover:text-admin-brand" />
+        <AdminIconArrow class="h-5 w-5 text-admin-text transition-colors group-hover:text-admin-primary" />
       </button>
     </div>
   </div>
@@ -39,8 +39,19 @@ const props = defineProps({
     default: [],
     validator: arr => arr.length === 2,
   },
+  text: {
+    type: String,
+    required: true,
+    validator: string => string.length > 0,
+  },
+  table: {
+    type: String,
+    required: true,
+    validator: string => string.length > 0,
+  },
 });
 
+const { TABLE_ITEM_PER_PAGE } = constants();
 const client = useSupabaseClient();
 const router = useRouter();
 const route = useRoute();
@@ -48,14 +59,14 @@ const route = useRoute();
 const { data: count } = await useAsyncData(
   "count",
   async () => {
-    const { count } = await client.from("products").select("*", { count: "exact", head: true });
+    const { count } = await client.from(props.table).select("*", { count: "exact", head: true });
     return count;
   },
   {
     lazy: true,
   },
 );
-const itemPerPage = ref(+route.query.perPage || 5);
+const itemPerPage = ref(+route.query.perPage || TABLE_ITEM_PER_PAGE);
 const page = computed(() => +route.query.page || 1);
 
 function prevPage() {

@@ -3,7 +3,7 @@
     <div class="mx-auto flex max-w-3xl flex-col items-center py-12 md:py-20">
       <h2 class="mb-8 text-center font-cormorant text-4xl md:text-5xl">Зв'язатися з нами</h2>
       <form
-        @submit.prevent="sendForm"
+        @submit.prevent=""
         class="flex items-center gap-2">
         <input
           v-maska
@@ -22,21 +22,21 @@
           <li>
             <NuxtLink
               to="/"
-              class="text-base text-gray-400 transition-colors hover:text-secondary md:text-lg">
+              class="text-base text-admin-text-light transition-colors hover:text-secondary md:text-lg">
               Про нас
             </NuxtLink>
           </li>
           <li>
             <NuxtLink
               to="/"
-              class="text-base text-gray-400 transition-colors hover:text-secondary md:text-lg">
+              class="text-base text-admin-text-light transition-colors hover:text-secondary md:text-lg">
               Популярні питання
             </NuxtLink>
           </li>
           <li>
             <NuxtLink
               to="/"
-              class="text-base text-gray-400 transition-colors hover:text-secondary md:text-lg">
+              class="text-base text-admin-text-light transition-colors hover:text-secondary md:text-lg">
               Бренди
             </NuxtLink>
           </li>

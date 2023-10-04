@@ -1,5 +1,5 @@
 <template>
-  <h1 class="text-3xl font-bold text-admin-brand mb-8">{{ title }}</h1>
+  <h1 class="text-3xl font-bold text-admin-primary mb-8">{{ title }}</h1>
 </template>
 
 <script setup>

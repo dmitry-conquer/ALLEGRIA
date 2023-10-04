@@ -35,7 +35,7 @@ const menu = [
   {
     icon: AdminIconContent,
     text: "Наповнення сайту",
-    link: "/admin/site-content",
+    link: "/admin/pages",
   },
   {
     icon: AdminIconSettings,
