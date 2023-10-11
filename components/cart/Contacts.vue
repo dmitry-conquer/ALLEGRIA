@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto w-full md:w-1/2 md:border-r p-0 md:p-7">
+  <div class="mx-auto w-full p-0 md:w-1/2 md:border-r md:p-7">
     <div class="mb-4">
       <div>
         <label
@@ -94,7 +94,6 @@
 </template>
 
 <script setup>
-
 import { useCartStore } from "~/stores/cart";
 
 const cart = useCartStore();
@@ -144,30 +143,22 @@ const pay = () => {
     delivery: `${addressString.value}. ${deliveryString.value}`,
     payment: paymentMethod.value,
   };
-  if (paymentMethod.value === "online") {
-    LiqPayCheckout.init({
-      data: dataOrder.value,
-      signature: signature.value,
-      embedTo: "#liqpay_checkout",
-      language: "uk",
-      mode: "popup", // embed || popup
-    }).on("liqpay.callback", async function (data) {
-      resultOrder.status = data.status;
-      useSaveOrder(resultOrder);
-      cart.products = [];
-    });
-    // .on("liqpay.ready", function (data) {
-    //   // ready
-    //   console.log(data);
-    // })
-    // .on("liqpay.close", function (data) {
-    //   console.log(data);
-    //   // close
-    // });
-  } else if (paymentMethod.value === "cash") {
-    resultOrder.status = "not payed";
-    useSaveOrder(resultOrder);
-    cart.products = [];
-  }
+  LiqPayCheckout.init({
+    data: dataOrder.value,
+    signature: signature.value,
+    // embedTo: "#liqpay_checkout",
+    language: "uk",
+    mode: "popup", // embed || popup
+  }).on("liqpay.callback", async function (data) {
+    console.log(data);
+  });
+  // .on("liqpay.ready", function (data) {
+  //   // ready
+  //   console.log(data);
+  // })
+  // .on("liqpay.close", function (data) {
+  //   console.log(data);
+  //   // close
+  // });
 };
 </script>
