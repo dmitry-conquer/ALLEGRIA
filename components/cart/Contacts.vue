@@ -94,14 +94,7 @@
 </template>
 
 <script setup>
-useHead({
-  script: [
-    {
-      src: "https://static.liqpay.ua/libjs/checkout.js",
-      defer: true,
-    },
-  ],
-});
+
 import { useCartStore } from "~/stores/cart";
 
 const cart = useCartStore();

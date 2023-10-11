@@ -10,78 +10,80 @@
         </p>
       </div>
       <div>
-        <div class="mb-20">
-          <GMapAutocomplete
-            class="mb-6 w-full border p-2 focus:outline-none"
-            placeholder="Пошук магазинів"
-            @place_changed="setPlace"
-            :options="{
-              bounds: {
-                north: 50.590798,
-                south: 50.213273,
-                east: 30.825447,
-                west: 30.23944,
-              },
-              strictBounds: true,
-            }">
-          </GMapAutocomplete>
-          <GMapMap
-            style="width: 100%; height: 500px"
-            :center="center"
-            :zoom="zoomValue"
-            :options="{
-              zoomControl: true,
-              mapTypeControl: false,
-              scaleControl: false,
-              streetViewControl: false,
-              rotateControl: false,
-              fullscreenControl: false,
-              mapId: '3b4c27ebd22bdc7a',
-            }">
-            <GMapCluster
-              :zoomOnClick="true"
-              :minimumClusterSize="3"
-              :styles="clusterStyles">
-              <GMapMarker
-                v-for="marker in markers"
-                :key="marker.id"
-                :position="marker.position"
-                :clickable="true"
-                :draggable="false"
-                @click="openMarker(marker.id)"
-                :icon="{
-                  url: 'https://cdn-icons-png.flaticon.com/128/1476/1476753.png',
-                  scaledSize: { width: 37, height: 37 },
-                  labelOrigin: { x: 16, y: -10 },
-                }">
-                <GMapInfoWindow :opened="openedMarkerID === marker.id" class="max-w-sm">
-                  <div
-                    v-if="openedMarkerID === marker.id"
-                    class="">
-                    <h3 class="mb-2 text-xl font-medium">Магазин №{{ marker.data.name }}</h3>
-                    <p class="mb-4">
-                      {{ marker.data.description }}
-                    </p>
-                    <div>
-                      <dl class="text-base">
-                        <div class="flex gap-2">
-                          <dt>Час роботи:</dt>
-                          <dd>{{ marker.data.workTime }}</dd>
-                        </div>
-                        <div class="flex gap-2">
-                          <dt>Рейтинг:</dt>
-                          <dd class="flex items-center">
-                            <span>{{ marker.data.rate }}</span> <IconStar class="h-5 w-5 pb-0.5 text-yellow-400" />
-                          </dd>
-                        </div>
-                      </dl>
+        <ClientOnly>
+          <div class="mb-20">
+            <GMapAutocomplete
+              class="mb-6 w-full border p-2 focus:outline-none"
+              placeholder="Пошук магазинів"
+              @place_changed="setPlace"
+              :options="{
+                bounds: {
+                  north: 50.590798,
+                  south: 50.213273,
+                  east: 30.825447,
+                  west: 30.23944,
+                },
+                strictBounds: true,
+              }">
+            </GMapAutocomplete>
+            <GMapMap
+              style="width: 100%; height: 500px"
+              :center="center"
+              :zoom="zoomValue"
+              :options="{
+                zoomControl: true,
+                mapTypeControl: false,
+                scaleControl: false,
+                streetViewControl: false,
+                rotateControl: false,
+                fullscreenControl: false,
+                mapId: '3b4c27ebd22bdc7a',
+              }">
+              <GMapCluster
+                :zoomOnClick="true"
+                :minimumClusterSize="3"
+                :styles="clusterStyles">
+                <GMapMarker
+                  v-for="marker in markers"
+                  :key="marker.id"
+                  :position="marker.position"
+                  :clickable="true"
+                  :draggable="false"
+                  @click="openMarker(marker.id)"
+                  :icon="{
+                    url: 'https://cdn-icons-png.flaticon.com/128/1476/1476753.png',
+                    scaledSize: { width: 37, height: 37 },
+                    labelOrigin: { x: 16, y: -10 },
+                  }">
+                  <GMapInfoWindow :opened="openedMarkerID === marker.id" class="max-w-sm">
+                    <div
+                      v-if="openedMarkerID === marker.id"
+                      class="">
+                      <h3 class="mb-2 text-xl font-medium">Магазин №{{ marker.data.name }}</h3>
+                      <p class="mb-4">
+                        {{ marker.data.description }}
+                      </p>
+                      <div>
+                        <dl class="text-base">
+                          <div class="flex gap-2">
+                            <dt>Час роботи:</dt>
+                            <dd>{{ marker.data.workTime }}</dd>
+                          </div>
+                          <div class="flex gap-2">
+                            <dt>Рейтинг:</dt>
+                            <dd class="flex items-center">
+                              <span>{{ marker.data.rate }}</span> <IconStar class="h-5 w-5 pb-0.5 text-yellow-400" />
+                            </dd>
+                          </div>
+                        </dl>
+                      </div>
                     </div>
-                  </div>
-                </GMapInfoWindow>
-              </GMapMarker>
-            </GMapCluster>
-          </GMapMap>
-        </div>
+                  </GMapInfoWindow>
+                </GMapMarker>
+              </GMapCluster>
+            </GMapMap>
+          </div>
+        </ClientOnly>
       </div>
     </div>
   </div>
